@@ -1,0 +1,36 @@
+# depslib dependency file v1.0
+1427885008 source:d:\misfit\lt code\binary file\main.cpp
+	<iostream>
+	<fstream>
+	<string.h>
+
+1427998957 
+
+1428056023 source:d:\lt code\binary file\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<stdio.h>
+	<stdlib.h>
+
+1427999149 source:/media/walpurisnacht/DATA/LT code/Binary File/main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<stdio.h>
+	<stdlib.h>
+
+1428683832 source:e:\misfit\binary file\main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<iostream>
+	<math.h>
+
+1428685348 source:d:\misfit\binary file\main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<iostream>
+	<math.h>
+
