@@ -12,9 +12,6 @@ const unsigned long long size = 1024*1024;  //1MB = 1024*1024 byte
 
 typedef char MB_BLOCK[size];
 
-const char* readbin = "rb";
-const char* writebin = "wb";
-const char* input = "data.bin";
 const int K = 100;
 const float c = 0.1;
 const double delta = 0.5;
@@ -39,27 +36,5 @@ void SplitBlock(int filesize)
 
 int main()
 {
-    /*int mb;
-    cout << "Input file size: ";
-    cin >> mb;*/
-    //-----Make MB-----//
-    //MakeFile(100);
-    //system("pause");
-    //-----Test random-----//
-    Random pseudo;
-    pseudo.setSeed(2067261);
-    //cout << tmp << " " << (double) tmp/pseudo.getMAX_RAND() << endl;
-    //double t = (double)tmp/pseudo.getMAX_RAND();
-    //cout << t << endl;
-    InitCDF(M);
-    //for (int i = 1; i <= K; ++i)
-        //cout << M[i] <<endl;
-    for (int i = 1; i<= K; ++i)
-    {
-        uint32_t tmp = pseudo.nextInt();
-        double t = (double)tmp/pseudo.getMAX_RAND();
-        cout << BinarySearch(M,K,t) << endl;
-    }
-    //-----Split block-----//
-    //SplitBlock(100);
+    
 }
