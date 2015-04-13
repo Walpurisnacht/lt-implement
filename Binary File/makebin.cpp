@@ -8,7 +8,7 @@ void MakeFile(int filesize)
 {
     MB_BLOCK buffer;
     FILE *output;
-    output = fopen(input,writebin);
+    output = fopen("data.bin","wb");
     for (int i = 0; i < filesize; ++i)
         fwrite(&buffer,sizeof(char),size,output);
     fclose(output);
