@@ -62,4 +62,4 @@ int BinarySearch(int n, double u)
     while(left <= right);
     return mid;
 }
-};
+
