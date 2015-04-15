@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class RandomClass{
+class Random{
 private:
     uint32_t M ;
     uint32_t A ;
