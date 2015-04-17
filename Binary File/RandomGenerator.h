@@ -57,7 +57,7 @@ int BinarySearch(double M[], int n, double u)
 }
 void RandomGenerator(double M[], int &degree, uint32_t &seed) /// RandomGenerator d va return seed.
 {
-    uint32_t temp;
+    double temp;
     Random pseudo;
     pseudo.setSeed(seed);
     temp = pseudo.nextInt()/pseudo.getMAX_RAND();
