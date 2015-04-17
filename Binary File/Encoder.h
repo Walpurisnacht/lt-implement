@@ -39,4 +39,7 @@ void Encoding()
         encode[i].seed = seed;
         Encoding_MB_BLOCK(encode[i].DATA,data,degree,seed);
     }
+    FILE *writebin;
+    writebin = fopen("encoded.lt","wb");
+    fwrite(&encode,sizeof(ENCODING_BLOCK),K,writebin);
 };
