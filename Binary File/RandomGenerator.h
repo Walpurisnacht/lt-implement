@@ -1,13 +1,7 @@
 #include <math.h>
 #include "RandomClass.h"
 
-#define K 100
-#define c 0.1
-#define delta 0.5
 
-using namespace std;
-
-double S = (double)c*log((double)K/(double)delta)*sqrt((double)K);
 double M[K+1];
 
 double ISD(int i)     /// Ideal Soliton Distribution

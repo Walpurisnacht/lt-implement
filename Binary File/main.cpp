@@ -4,14 +4,6 @@
 
 using namespace std;
 
-const unsigned long long size = 1024*1024;  //1MB = 1024*1024 byte
-
-typedef char MB_BLOCK[size];
-
-const char* readbin = "rb";
-const char* writebin = "wb";
-const char* input = "data.bin";
-
 void MakeFile(int filesize)
 {
     MB_BLOCK buffer;
