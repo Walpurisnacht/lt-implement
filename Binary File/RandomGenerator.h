@@ -1,8 +1,7 @@
 #include <math.h>
-#include "RandomClass.h"
+#include <LT.h>
 
 
-double M[K+1];
 
 double ISD(int i)     /// Ideal Soliton Distribution
 {
@@ -25,7 +24,7 @@ double RSD(int i)    ///  Robust Soliton Distribution
     return ISD(i)+NNF(i);
 }
 
-void InitCDF()   /// Generate Array M
+void InitCDF(double M[])   /// Generate Array M
 {
     double Z = 1;
     for (int i = 1; i<=K; ++i)
@@ -35,7 +34,7 @@ void InitCDF()   /// Generate Array M
         M[i]=M[i-1] + RSD(i)/Z;
 }
 
-int BinarySearch(int n, double u)
+int BinarySearch(double M[], int n, double u)
 {
     int left = 0, right = n, mid;
     do
@@ -55,5 +54,14 @@ int BinarySearch(int n, double u)
     }
     while(left <= right);
     return mid;
+}
+void RandomGenerator(double M[], int &degree, uint32_t &seed) /// RandomGenerator d va return seed.
+{
+    uint32_t temp;
+    Random pseudo;
+    pseudo.setSeed(seed);
+    temp = pseudo.nextInt()/pseudo.getMAX_RAND();
+    degree = BinarySearch(M,K,temp);
+    seed = pseudo.getState();
 }
 

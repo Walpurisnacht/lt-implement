@@ -1,5 +1,5 @@
 #include <iostream>
-#include <RandomClass.h>
+#include <LT.h>
 #include <RandomGenerator.h>
 
 using namespace std;
