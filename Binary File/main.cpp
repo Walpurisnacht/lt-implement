@@ -15,9 +15,6 @@ void MakeFile(int filesize)
     fclose(output);
 }
 
-
-
-
 int main()
 {
    Encoding();
