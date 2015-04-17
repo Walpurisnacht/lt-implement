@@ -1,6 +1,7 @@
 #include <iostream>
 #include <LT.h>
 #include <RandomGenerator.h>
+#include <Encoder.h>
 
 using namespace std;
 
@@ -14,20 +15,7 @@ void MakeFile(int filesize)
     fclose(output);
 }
 
-void SplitBlock(int filesize)
-{
-    MB_BLOCK *data;
-    data = new MB_BLOCK[filesize];
-    FILE *read;
-    read = fopen(input,readbin);
-    for (int i = 0; i < filesize; i++)
-        fread(&data,sizeof(MB_BLOCK),filesize,read);
-    fclose(read);
-    //chk
-    //for (int i = 0; i < size; i++)
-    //    cout << data[2][i];
-    //cout << "DONE";
-}
+
 
 
 int main()

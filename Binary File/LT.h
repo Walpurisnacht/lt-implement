@@ -23,7 +23,7 @@ typedef struct ENCODING_BLOCK
 {
     int d;
     uint32_t seed;
-    MB_BLOCK data;
+    MB_BLOCK DATA;
 } ENCODING_BLOCK;
 
 class Random{
