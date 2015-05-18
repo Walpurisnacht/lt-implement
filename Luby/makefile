@@ -8,6 +8,6 @@ OBJ = main.o RandomGen.o Encoder.o
 
 main.exe: $(OBJ)
 		$(CC) -o $@ $^ $(CFLAGS)
-		
+default: clean
 clean:
-		rm -f *.o
+		rm -f $(OBJ) *~
