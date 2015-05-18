@@ -18,23 +18,21 @@
 	"Luby.h"
 	"RandomGen.h"
 
-1430128564 source:e:\misfit\luby\main.cpp
-	<iostream>
-	"Luby.h"
-	"RandomGen.h"
+1431011686 source:e:\misfit\luby\main.cpp
 	"Encoder.h"
 
-1430104890 e:\misfit\luby\luby.h
+1430905268 e:\misfit\luby\luby.h
+	<iostream>
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
 	<math.h>
+	<time.h>
 
 1429716199 e:\misfit\luby\randomgen.h
 	"Luby.h"
 
-1429679978 e:\misfit\luby\encoder.h
-	"Luby.h"
+1430790288 e:\misfit\luby\encoder.h
 	"RandomGen.h"
 
 1429681050 source:d:\misfit\luby\main.cpp
@@ -56,10 +54,44 @@
 	"Luby.h"
 	"RandomGen.h"
 
-1430128533 source:e:\misfit\luby\encoder.cpp
+1431069270 source:e:\misfit\luby\encoder.cpp
 	"Encoder.h"
-	"RandomGen.h"
+	<bits/stdc++.h>
 
 1429771700 source:e:\misfit\luby\randomgen.cpp
 	"RandomGen.h"
+
+1431069270 source:f:\misfit\luby\encoder.cpp
+	"Encoder.h"
+	<bits/stdc++.h>
+
+1430790288 f:\misfit\luby\encoder.h
+	"RandomGen.h"
+
+1429716199 f:\misfit\luby\randomgen.h
+	"Luby.h"
+
+1430905268 f:\misfit\luby\luby.h
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<math.h>
+	<time.h>
+
+1429771700 source:f:\misfit\luby\randomgen.cpp
+	"RandomGen.h"
+
+1431965080 source:f:\misfit\luby\main.cpp
+	"Encoder.h"
+	"Decoder.h"
+	<bits/stdc++.h>
+
+1431963280 source:f:\misfit\luby\decoder.cpp
+	"Decoder.h"
+	<bits/stdc++.h>
+
+1431967688 f:\misfit\luby\decoder.h
+	"RandomGen.h"
+	<bits/stdc++.h>
 

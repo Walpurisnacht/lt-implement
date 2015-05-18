@@ -1,7 +1,7 @@
 #ifndef ENCODER_H_INCLUDED
 #define ENCODER_H_INCLUDED
 
-#include "Luby.h"
+
 #include "RandomGen.h"
 
 
