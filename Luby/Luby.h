@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include <math.h>
 #include <time.h>
+#include <list>
 
 #define K 100
 #define C 0.1
@@ -41,6 +42,13 @@ typedef struct ENCODING_BLOCK
     uint32_t seed;
     MB_BLOCK DATA;
 } ENCODING_BLOCK;
+
+typedef struct DECODING_BLOCK
+{
+    std::list<int> _block_pos;
+    ENCODING_BLOCK _encode;
+    int _d;
+} DECODING_BLOCK;
 
 
 class Random

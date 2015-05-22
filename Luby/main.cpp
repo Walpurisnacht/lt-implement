@@ -36,7 +36,7 @@ void TestList()
 {
     ENCODING_BLOCK *data = new ENCODING_BLOCK[K];
     ReadES(data);
-    Decoding_ENCODING_BLOCK(data);
+    //Decoding_ENCODING_BLOCK(data);
 }
 
 int main()
@@ -45,5 +45,6 @@ int main()
     //Encoding();
     //TestRead();
     //TestList();
+    Decoding();
     return 0;
 }
