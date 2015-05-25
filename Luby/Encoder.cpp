@@ -1,6 +1,7 @@
 #include "Encoder.h"
 #include <bits/stdc++.h>
 
+extern int K;
 
 void ReadData(MB_BLOCK *data)
 {
@@ -58,7 +59,7 @@ void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int degree, uint32_t se
 
 
 
-void Encoding()
+void Encoding(int _tseed)
 {
     RandomGen::InitCDF();
     MB_BLOCK *data = new MB_BLOCK[K];
@@ -66,7 +67,7 @@ void Encoding()
     ENCODING_BLOCK encode ;
     FILE *writebin;
     RandomGen *D = new RandomGen;
-    D -> setSeed(2067261);
+    D -> setSeed(_tseed);
     writebin = fopen("encoded.lt","wb");
     clock_t t = clock();
     for(int i = 0; i < K; ++i)
@@ -82,4 +83,5 @@ void Encoding()
     fclose(writebin);
     delete data;
     delete D;
+    std::cout << "Encoding completed!";
 };

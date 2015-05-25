@@ -6,7 +6,7 @@ OBJ = main.o RandomGen.o Encoder.o
 %.o : %.cpp $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)
 
-main.exe: $(OBJ)
+luby.exe: $(OBJ)
 		$(CC) -o $@ $^ $(CFLAGS)
 default: clean
 clean:

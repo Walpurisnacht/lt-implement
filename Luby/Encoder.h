@@ -13,6 +13,6 @@ void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int degree, uint32_t se
 
 
 
-void Encoding();
+void Encoding(int _tseed);
 
 #endif // ENCODER_H_INCLUDED

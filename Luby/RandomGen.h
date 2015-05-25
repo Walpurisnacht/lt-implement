@@ -3,12 +3,14 @@
 
 #include "Luby.h"
 
+extern int K;
+
 class RandomGen
 {
 
 private:
 
-    static double M[K+1];
+    static double M[K+1]; //ERROR
     int degree;
     uint32_t seed;
 

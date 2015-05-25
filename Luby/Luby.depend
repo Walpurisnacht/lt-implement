@@ -95,3 +95,38 @@
 	"RandomGen.h"
 	<bits/stdc++.h>
 
+1432301826 source:f:\mega\luby\decoder.cpp
+	"Decoder.h"
+	"Encoder.h"
+
+1432120594 f:\mega\luby\decoder.h
+	"RandomGen.h"
+	<bits/stdc++.h>
+
+1429716199 f:\mega\luby\randomgen.h
+	"Luby.h"
+
+1432114397 f:\mega\luby\luby.h
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<math.h>
+	<time.h>
+	<list>
+
+1432531127 f:\mega\luby\encoder.h
+	"RandomGen.h"
+
+1432531818 source:f:\mega\luby\encoder.cpp
+	"Encoder.h"
+	<bits/stdc++.h>
+
+1432532542 source:f:\mega\luby\main.cpp
+	"Encoder.h"
+	"Decoder.h"
+	<bits/stdc++.h>
+
+1429771700 source:f:\mega\luby\randomgen.cpp
+	"RandomGen.h"
+

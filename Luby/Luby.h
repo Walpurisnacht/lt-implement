@@ -9,7 +9,8 @@
 #include <time.h>
 #include <list>
 
-#define K 100
+extern int K;
+
 #define C 0.1
 #define DELTA 0.5
 #define SIZE 1024*1024
