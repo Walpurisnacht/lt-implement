@@ -1,6 +1,7 @@
 #include "Encoder.h"
 #include "Decoder.h"
 #include <bits/stdc++.h>
+#include <exception>
 
 int K;
 
@@ -20,16 +21,19 @@ void MakeFile(int filesize)
 
 void TestRead()
 {
-    ENCODING_BLOCK *data = new ENCODING_BLOCK[K];
+    //ENCODING_BLOCK *data = new ENCODING_BLOCK[K];
+    ENCODING_BLOCK buffer;
+    std::list<ENCODING_BLOCK> data;
     FILE *rf;
     rf = fopen("encoded.lt","rb");
     int i=0;
 
     while(!feof(rf))
         {
-            if (!fread(&data[i],sizeof(ENCODING_BLOCK),1,rf)) break;
+            if (!fread(&buffer,sizeof(ENCODING_BLOCK),1,rf)) break;
+            data.push_back(buffer);
             //std::cout << data[i].d << " " << data[i].seed << " " << data[i].DATA.byte[10] << std::endl;
-            printf("%d %u %c\n",data[i].d,data[i].seed,data[i].DATA.byte[10]);
+            printf("%d %u %c\n",buffer.d,buffer.seed,buffer.DATA.byte[10]);
             //wr <<data[i].d << " "<< data[i].seed << "\n";
             i++;
         }
@@ -43,10 +47,13 @@ void TestRead()
 //    {
 //        fscanf(wr,"%d %u %c",&data[i].d,&data[i].seed,&data[i].DATA.byte[10]);
 //    }
+    std::list<ENCODING_BLOCK>::iterator it;
     std::ofstream wr;
     wr.open("list.txt", std::ios::out);
-    for (int j = 0; j < i; j++)
-        wr << data[j].d << " " << data[j].seed << " " << data[j].DATA.byte[10] << "\n";
+    for (it = data.begin(); it != data.end(); it++)
+        wr << (*it).d << " " << (*it).seed << " " << (*it).DATA.byte[10] << "\n";
+//    for (int j = 0; j < i; j++)
+//        wr << data[j].d << " " << data[j].seed << " " << data[j].DATA.byte[10] << "\n";
     std::cout << "Output completed!" << std::endl;
     wr.close();
 }
@@ -61,7 +68,7 @@ void TestRead()
 int main(int argc, char* argv[])
 {
     //IDE debug section//
-
+    TestRead();
 
 
 
@@ -74,23 +81,32 @@ int main(int argc, char* argv[])
 
     if (argc == 1) return 0;
 
-    if (!strcmp(argv[1],"makefile"))
+    try
     {
-        MakeFile(atoi(argv[2])); // main makefile [filesize]
+            if (!strcmp(argv[1],"makefile"))
+        {
+            MakeFile(atoi(argv[2])); // main makefile [filesize]
+        }
+
+        else if (!strcmp(argv[1],"encode")) //main encode [seed] [K]
+        {
+            n = atoi(argv[2]); //initial seed
+            K = atoi(argv[3]);
+            std::cout << K << std::endl;
+            Encoding(n);
+        }
+
+        else if (!strcmp(argv[1],"debug"))
+        {
+            if (!strcmp(argv[2],"read")) TestRead();
+        }
+    }
+    catch (std::exception& e)
+    {
+        std::cout << "Exception: "  << e.what() << std::endl;
     }
 
-    else if (!strcmp(argv[1],"encode")) //main encode [seed] [K]
-    {
-        n = atoi(argv[2]); //initial seed
-        K = atoi(argv[3]);
-        std::cout << K;
-        Encoding(n);
-    }
 
-    else if (!strcmp(argv[1],"debug"))
-    {
-        if (!strcmp(argv[2],"read")) TestRead();
-    }
 
     return 0;
 }
