@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -Wall -fexceptions -g -std=c++11 -I.
-DEPS = RandomGen.h Encoder.h Luby.h
-OBJ = main.o RandomGen.o Encoder.o
+DEPS = RandomGen.h Encoder.h Luby.h Decoder.h
+OBJ = main.o RandomGen.o Encoder.o Decoder.o
 
 %.o : %.cpp $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)

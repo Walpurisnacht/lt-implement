@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
 {
     //IDE debug section//
     //TestRead();
-
+    //Decoding();
 
 
 
@@ -88,40 +88,36 @@ int main(int argc, char* argv[])
 
     if (argc == 1) return 0;
 
-    try
+    if (!strcmp(argv[1],"-help"))
     {
-        if (!strcmp(argv[1],"-help"))
-        {
-            using namespace std;
-            cout << "-make [filesize]" << endl;
-            cout << "-encode [seed] [block]" << endl;
-            cout << "-debug [tag]" << endl;
-            cout << "[tag] : read" << endl;
-        }
-        else if (!strcmp(argv[1],"-make"))
-        {
-            MakeFile(atoi(argv[2])); // main makefile [filesize]
-        }
-
-        else if (!strcmp(argv[1],"-encode")) //main encode [seed] [K]
-        {
-            n = atoi(argv[2]); //initial seed
-            K = atoi(argv[3]);
-            std::cout << K << std::endl;
-            Encoding(n);
-        }
-
-        else if (!strcmp(argv[1],"-debug"))
-        {
-            if (!strcmp(argv[2],"read")) TestRead();
-        }
+        using namespace std;
+        cout << "-make [filesize]" << endl;
+        cout << "-encode [seed] [block]" << endl;
+        cout << "-debug [tag]" << endl;
+        cout << "[tag] : read" << endl;
     }
-    catch (std::exception& e)
+    else if (!strcmp(argv[1],"-make"))
     {
-        std::cout << "Exception: "  << e.what() << std::endl;
+        MakeFile(atoi(argv[2])); // main makefile [filesize]
     }
 
+    else if (!strcmp(argv[1],"-encode")) //main encode [seed] [K]
+    {
+        n = atoi(argv[2]); //initial seed
+        K = atoi(argv[3]);
+        std::cout << K << std::endl;
+        Encoding(n);
+    }
 
+    else if (!strcmp(argv[1],"-decode"))
+    {
+        Decoding(); //ERROR
+    }
+
+    else if (!strcmp(argv[1],"-debug"))
+    {
+        if (!strcmp(argv[2],"read")) TestRead();
+    }
 
     return 0;
 }
