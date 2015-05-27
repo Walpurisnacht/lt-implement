@@ -7,12 +7,17 @@
 #include <stdint.h>
 #include <math.h>
 #include <time.h>
+#include <list>
+#include <bits/stdc++.h>
 
-#define K 100
+extern int K;
+
 #define C 0.1
 #define DELTA 0.5
 #define SIZE 1024*1024
-#define S (double)C*log((double)K/(double)DELTA)*sqrt((double)K)
+#define S(x) ((double)C*log((double)(x)/(double)DELTA)*sqrt((double)(x)))
+
+
 
 template <class T>
 void XOR(char* input1, char* input2, char* output, unsigned int s)
@@ -29,6 +34,17 @@ void XOR(char* input1, char* input2, char* output, unsigned int s)
 }
 
 
+template<class T>
+void ReadData(T* data, const char* s)
+{
+    FILE* read;
+    read = fopen(s,"rb");
+    for (int i = 0; i < K; i++)
+        fread(&data[i],sizeof(T),1,read);
+    fclose(read);
+}
+
+
 typedef struct MB_BLOCK
 {
     char byte[SIZE];
@@ -38,10 +54,24 @@ typedef struct MB_BLOCK
 typedef struct ENCODING_BLOCK
 {
     int d;
+    unsigned int filesize;
     uint32_t seed;
     MB_BLOCK DATA;
 } ENCODING_BLOCK;
 
+
+typedef struct RIPPLE
+{
+    bool checkin;
+    bool checkout;
+} RIPPLE;
+
+typedef struct DECODING_BLOCK
+{
+    std::list<int> _block_pos;
+    ENCODING_BLOCK _encode;
+    //d from _encode;
+} DECODING_BLOCK;
 
 class Random
 {

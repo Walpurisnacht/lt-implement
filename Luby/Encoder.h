@@ -5,14 +5,11 @@
 #include "RandomGen.h"
 
 
-void ReadData(MB_BLOCK *data);
+
+void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int degree, uint32_t seed, unsigned int filesize);
 
 
 
-void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int degree, uint32_t seed);
-
-
-
-void Encoding();
+void Encoding(int _tseed);
 
 #endif // ENCODER_H_INCLUDED

@@ -1,13 +1,13 @@
 CC = g++
-CFLAGS = -Wall -I.
+CFLAGS = -Wall -fexceptions -g -std=c++11 -I.
 DEPS = RandomGen.h Encoder.h Luby.h
 OBJ = main.o RandomGen.o Encoder.o
 
 %.o : %.cpp $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)
 
-main.exe: $(OBJ)
+luby.exe: $(OBJ)
 		$(CC) -o $@ $^ $(CFLAGS)
-default: clean
+.PHONY: clean all
 clean:
 		rm -f $(OBJ) *~

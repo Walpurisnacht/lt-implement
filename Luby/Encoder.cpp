@@ -1,19 +1,9 @@
 #include "Encoder.h"
 #include <bits/stdc++.h>
 
+extern int K;
 
-void ReadData(MB_BLOCK *data)
-{
-    FILE *read;
-    read = fopen("data.bin","rb");
-    for(int i = 0; i < K; ++i)
-        fread(&data[i],sizeof(MB_BLOCK),1,read);
-    fclose(read);
-}
-
-
-
-void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int degree, uint32_t seed)
+void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int degree, uint32_t seed, unsigned int filesize)
 {
     bool *check = new bool[K];
     for (int i = 0; i < K; i++)
@@ -58,15 +48,31 @@ void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int degree, uint32_t se
 
 
 
-void Encoding()
+void Encoding(int _tseed)
 {
-    RandomGen::InitCDF();
     MB_BLOCK *data = new MB_BLOCK[K];
-    ReadData(data);
+    ReadData<MB_BLOCK>(data,"data.bin");
     ENCODING_BLOCK encode ;
     FILE *writebin;
     RandomGen *D = new RandomGen;
-    D -> setSeed(2067261);
+    D -> setSeed(_tseed);
+    //size section
+    unsigned int _filesize;
+    FILE *chk;
+    chk = fopen("data.bin","rb");
+    fseek(chk,0,SEEK_END);
+    _filesize = (unsigned int) ftell(chk);
+    //debug//
+    std::cout << "File size data.bin in MB: " << _filesize/(1024*1024) << std::endl;
+    //debug//
+    fclose(chk);
+
+
+
+
+
+
+
     writebin = fopen("encoded.lt","wb");
     clock_t t = clock();
     for(int i = 0; i < K; ++i)
@@ -74,7 +80,8 @@ void Encoding()
         D -> RandomGenerator();
         encode.d = D -> getDegree();
         encode.seed = D -> getSeed();
-        Encoding_MB_BLOCK(encode.DATA,data,encode.d,encode.seed);
+        encode.filesize = _filesize;
+        Encoding_MB_BLOCK(encode.DATA,data,encode.d,encode.seed,encode.filesize);
         fwrite(&encode,sizeof(ENCODING_BLOCK),1,writebin);
     }
     t = clock() - t;

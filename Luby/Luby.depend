@@ -95,3 +95,72 @@
 	"RandomGen.h"
 	<bits/stdc++.h>
 
+1432301826 source:f:\mega\luby\decoder.cpp
+	"Decoder.h"
+	"Encoder.h"
+
+1432120594 f:\mega\luby\decoder.h
+	"RandomGen.h"
+	<bits/stdc++.h>
+
+1432660241 f:\mega\luby\randomgen.h
+	"Luby.h"
+
+1432660293 f:\mega\luby\luby.h
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<math.h>
+	<time.h>
+	<list>
+	<bits/stdc++.h>
+
+1432536583 f:\mega\luby\encoder.h
+	"RandomGen.h"
+
+1432659241 source:f:\mega\luby\encoder.cpp
+	"Encoder.h"
+	<bits/stdc++.h>
+
+1432536539 source:f:\mega\luby\main.cpp
+	"Encoder.h"
+	"Decoder.h"
+	<bits/stdc++.h>
+
+1432660427 source:f:\mega\luby\randomgen.cpp
+	"RandomGen.h"
+
+1432660509 source:f:\sourcetree\lt-implement\luby\encoder.cpp
+	"Encoder.h"
+	<bits/stdc++.h>
+
+1432536583 f:\sourcetree\lt-implement\luby\encoder.h
+	"RandomGen.h"
+
+1432660241 f:\sourcetree\lt-implement\luby\randomgen.h
+	"Luby.h"
+
+1432660293 f:\sourcetree\lt-implement\luby\luby.h
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<math.h>
+	<time.h>
+	<list>
+	<bits/stdc++.h>
+
+1432727302 source:f:\sourcetree\lt-implement\luby\main.cpp
+	"Encoder.h"
+	"Decoder.h"
+	<bits/stdc++.h>
+	<exception>
+
+1432120594 f:\sourcetree\lt-implement\luby\decoder.h
+	"RandomGen.h"
+	<bits/stdc++.h>
+
+1432660427 source:f:\sourcetree\lt-implement\luby\randomgen.cpp
+	"RandomGen.h"
+

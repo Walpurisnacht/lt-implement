@@ -1,7 +1,7 @@
 #include "RandomGen.h"
 
 
-double RandomGen::M[] = {0};
+
 
 
 void RandomGen::InitCDF()
