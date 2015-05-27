@@ -3,17 +3,6 @@
 
 extern int K;
 
-void ReadData(MB_BLOCK *data)
-{
-    FILE *read;
-    read = fopen("data.bin","rb");
-    for(int i = 0; i < K; ++i)
-        fread(&data[i],sizeof(MB_BLOCK),1,read);
-    fclose(read);
-}
-
-
-
 void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int degree, uint32_t seed)
 {
     bool *check = new bool[K];
@@ -61,9 +50,8 @@ void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int degree, uint32_t se
 
 void Encoding(int _tseed)
 {
-    RandomGen::InitCDF();
     MB_BLOCK *data = new MB_BLOCK[K];
-    ReadData(data);
+    ReadData<MB_BLOCK>(data,"data.bin");
     ENCODING_BLOCK encode ;
     FILE *writebin;
     RandomGen *D = new RandomGen;
@@ -83,5 +71,4 @@ void Encoding(int _tseed)
     fclose(writebin);
     delete data;
     delete D;
-    std::cout << "Encoding completed!";
 };

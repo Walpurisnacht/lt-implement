@@ -8,6 +8,6 @@ OBJ = main.o RandomGen.o Encoder.o
 
 luby.exe: $(OBJ)
 		$(CC) -o $@ $^ $(CFLAGS)
-default: clean
+.PHONY: clean
 clean:
 		rm -f $(OBJ) *~
