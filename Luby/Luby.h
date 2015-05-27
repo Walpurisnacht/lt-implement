@@ -54,6 +54,7 @@ typedef struct MB_BLOCK
 typedef struct ENCODING_BLOCK
 {
     int d;
+    unsigned int filesize;
     uint32_t seed;
     MB_BLOCK DATA;
 } ENCODING_BLOCK;

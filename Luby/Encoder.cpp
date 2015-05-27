@@ -3,7 +3,7 @@
 
 extern int K;
 
-void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int degree, uint32_t seed)
+void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int degree, uint32_t seed, unsigned int filesize)
 {
     bool *check = new bool[K];
     for (int i = 0; i < K; i++)
@@ -56,6 +56,23 @@ void Encoding(int _tseed)
     FILE *writebin;
     RandomGen *D = new RandomGen;
     D -> setSeed(_tseed);
+    //size section
+    unsigned int _filesize;
+    FILE *chk;
+    chk = fopen("data.bin","rb");
+    fseek(chk,0,SEEK_END);
+    _filesize = (unsigned int) ftell(chk);
+    //debug//
+    std::cout << "File size data.bin in MB: " << _filesize/(1024*1024) << std::endl;
+    //debug//
+    fclose(chk);
+
+
+
+
+
+
+
     writebin = fopen("encoded.lt","wb");
     clock_t t = clock();
     for(int i = 0; i < K; ++i)
@@ -63,7 +80,8 @@ void Encoding(int _tseed)
         D -> RandomGenerator();
         encode.d = D -> getDegree();
         encode.seed = D -> getSeed();
-        Encoding_MB_BLOCK(encode.DATA,data,encode.d,encode.seed);
+        encode.filesize = _filesize;
+        Encoding_MB_BLOCK(encode.DATA,data,encode.d,encode.seed,encode.filesize);
         fwrite(&encode,sizeof(ENCODING_BLOCK),1,writebin);
     }
     t = clock() - t;

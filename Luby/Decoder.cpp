@@ -7,6 +7,8 @@
 //
 //}
 
+extern int K;
+
 bool IntCmpr(const int& first, const int& second)
 {
     return first < second;
@@ -17,12 +19,21 @@ std::list<int>::iterator ListSearch(std::list<int> _block_pos, int n)
     return std::lower_bound(_block_pos.begin(),_block_pos.end(),n);
 }
 
-void ReadES(ENCODING_BLOCK *data)
+void ReadES(std::list<ENCODING_BLOCK> &data) //done
 {
     FILE *read;
     read = fopen("encoded.lt","rb");
-    for (int i = 0; i < K; i++)
-        fread(&data[i],sizeof(ENCODING_BLOCK),1,read);
+    ENCODING_BLOCK buffer;
+    K = 0;
+    while(!feof(read))
+    {
+        if (!fread(&buffer,sizeof(ENCODING_BLOCK),1,read)) break;
+        data.push_back(buffer);
+        K++;
+    }
+    //debug//
+    std::cout << K << std::endl;
+    //debug//
     fclose(read);
 }
 
@@ -34,17 +45,22 @@ void ReInitBool(bool* check, Random* pseudo, int seed, uint32_t &temp)
     check[temp] = true;
 }
 
-void FormGraph(ENCODING_BLOCK *data, std::list<int> *_block_pos, DECODING_BLOCK *gdata)
+void FormGraph(std::list<ENCODING_BLOCK> data, std::list<int> *_block_pos, DECODING_BLOCK *gdata)
 {
-    for (int i = 0; i < K; i++)
+    //for (int i = 0; i < K; i++)
+    std::list<ENCODING_BLOCK>::iterator it;
+    int i;
+    for (it = data.begin(), i = 0; it != data.end(); it++, i++)
     {
-        gdata[i]._encode = data[i];
+        gdata[i]._encode = *it;
         gdata[i]._block_pos = _block_pos[i];
-        gdata[i]._d = gdata[i]._block_pos.size();
+        //d from _encode;
     }
+    data.clear();
+    delete _block_pos;
 }
 
-std::list<int>* Decoding_ENCODING_BLOCK(ENCODING_BLOCK *data, std::list<int> *_block_pos)
+std::list<int>* Decoding_ENCODING_BLOCK(std::list<ENCODING_BLOCK> data, std::list<int> *_block_pos) //done
 {
 //    bool *check = new bool[K];
 //    check = ReInitBool(check);
@@ -64,22 +80,40 @@ std::list<int>* Decoding_ENCODING_BLOCK(ENCODING_BLOCK *data, std::list<int> *_b
     uint32_t temp;
 
     //clock_t t = clock();
-
-    for (int i = 0; i < K; i++)
+    std::list<ENCODING_BLOCK>::iterator it;
+    int i;
+    for (it = data.begin(), i = 0; it != data.end(); it++, i++)
     {
+        ReInitBool(check,pseudo,(*it).seed,temp);
+        int deg = (*it).d;
 
-        ReInitBool(check,pseudo,data[i].seed,temp);
-        int degree = data[i].d;
         _block_pos[i].push_back(temp);
-        while (--degree)
+
+        while (--deg)
         {
-            while(check[temp]) temp = pseudo -> nextInt() % K;
+            while (check[temp]) temp = pseudo -> nextInt() % K;
             check[temp] = true;
 
             _block_pos[i].push_back(temp);
         }
         _block_pos[i].sort(IntCmpr);
     }
+
+//    for (int i = 0; i < K; i++)
+//    {
+//
+//        ReInitBool(check,pseudo,data[i].seed,temp);
+//        int degree = data[i].d;
+//        _block_pos[i].push_back(temp);
+//        while (--degree)
+//        {
+//            while(check[temp]) temp = pseudo -> nextInt() % K;
+//            check[temp] = true;
+//
+//            _block_pos[i].push_back(temp);
+//        }
+//        _block_pos[i].sort(IntCmpr);
+//    }
 
     //Debug//
     /*std::list<int>::iterator it;
@@ -123,7 +157,7 @@ void ScanDeg(DECODING_BLOCK *gdata, MB_BLOCK *odata, std::list<int> &ripple, std
 
 void Decoding()
 {
-    ENCODING_BLOCK *data = new ENCODING_BLOCK[K];
+    std::list<ENCODING_BLOCK> data;
     ReadES(data);
 
     std::list<int> *_block_pos = new std::list<int>[K]; //array of block_pos for each e
@@ -136,7 +170,7 @@ void Decoding()
     //Test//
 
     DECODING_BLOCK *gdata = new DECODING_BLOCK[K];
-    FormGraph(data,_block_pos,gdata); //get data from encoding symbol
+    FormGraph(data,_block_pos,gdata); //main is gdata, deleted former
 
     //Test//
 //    std::list<int>::iterator it;
