@@ -57,8 +57,44 @@ void FormGraph(std::list<ENCODING_BLOCK> data, std::list<int> *_block_pos, DECOD
         gdata[i]._block_pos = _block_pos[i];
         //d from _encode;
     }
+    extern bool chk;
+    //debug
+    if (chk)
+    {
+        using namespace std;
+        ofstream tr;
+        tr.open("readlist.txt");
+
+        for (int i = 0; i < K; i++)
+        {
+            cout << "Block: " << i+1 << endl;
+            cout << "Degree: " << gdata[i]._encode.d << endl;
+            cout << "Filesize: " << gdata[i]._encode.filesize << endl;
+            cout << "Seed: " << gdata[i]._encode.seed << endl;
+
+            tr  << "Block: " << i+1
+                << "\nDegree: " << gdata[i]._encode.d
+                << "\nFilesize: " << gdata[i]._encode.filesize
+                << "\nSeed: " << gdata[i]._encode.seed
+                << "\nPosition: ";
+
+            list<int>::iterator jt;
+            cout << "Position: ";
+            for (jt = gdata[i]._block_pos.begin(); jt != gdata[i]._block_pos.end(); jt++)
+            {
+                cout << *jt << " ";
+                tr << *jt << " ";
+            }
+            cout << "\n-------------------" << endl;
+            tr << "\n-------------------" << endl;
+            system("pause");
+        }
+        tr.close();
+    }
+    //debug
     data.clear();
     delete _block_pos;
+    exit(1);
 }
 
 std::list<int>* Decoding_ENCODING_BLOCK(std::list<ENCODING_BLOCK> data, std::list<int> *_block_pos) //done
@@ -150,6 +186,24 @@ void ScanDeg(DECODING_BLOCK *gdata, MB_BLOCK *odata, std::list<int> &ripple, std
             XOR<long long>(odata[tmp].byte,gdata[i]._encode.DATA.byte,odata[tmp].byte,SIZE);
             gdata[i]._encode.d--;
             if (!ScanList(tmp,ripple) && !ScanList(tmp,offripple))  ripple.push_back(tmp); //push position in ripple
+            //debug//
+            using namespace std;
+            cout << "Position: " << i << endl;
+            cout << "Degree: " << gdata[i]._encode.d << endl;
+            list<int>::iterator ri,ori;
+            cout << "Ripple: ";
+            for (ri = ripple.begin(); ri != ripple.end(); ri++)
+            {
+                cout << *ri << " ";
+            }
+            cout << "\nOffripple: ";
+            for (ori = offripple.begin(); ori != offripple.end(); ori++)
+            {
+                cout << *ori << " ";
+            }
+            cout << "\n----------" << endl;
+            system("pause");
+            //debug//
         }
     }
 }
@@ -196,16 +250,20 @@ void Decoding()
 
     std::list<int> ripple;
     std::list<int> offripple;
-    clock_t t = clock();
-    while(offripple.size()!=_size) //stop when ripple is empty
+    clock_t t = clock(); //offripple.size()!=_size && it != ripple.end()
+    while(1) //stop when ripple is empty
     {
         std::list<int>::iterator it;
-        ScanDeg(gdata,odata,ripple,offripple); //release d = 1 encoding symbols and add them to ripple
+
+        if (offripple.size() == _size) break;
+        ScanDeg(gdata,odata,ripple,offripple);
+        if (ripple.size() == 0) {std::cout << "Decode failed!"; return;} //release d = 1 encoding symbols and add them to ripple
         for (it = ripple.begin(); it != ripple.end();) //process ripple
         {
             //std::list<int>::iterator _posit;
             for (int z  = 0; z < K; z++)
             {
+                if (!ScanList(*it,gdata[z]._block_pos)) continue;
                 gdata[z]._block_pos.remove(*it); //remove position which is in ripple
                 gdata[z]._encode.d--;
                 ScanDeg(gdata,odata,ripple,offripple); //update ripple + release encoding symbol
@@ -216,6 +274,16 @@ void Decoding()
             offripple.push_back(*tmp);
             offripple.unique();
             ripple.erase(tmp); //remove first member of ripple (proccessed)
+            //debug//
+            std::cout << "Ripple: ";
+            for (std::list<int>::iterator ri = ripple.begin(); ri != ripple.end(); ri++)
+                std::cout << *ri << " ";
+            std::cout << "Offripple: ";
+            for (std::list<int>::iterator ori = offripple.begin(); ori != offripple.end(); ori++)
+                std::cout << *ori << " ";
+            std::cout << "\n----------" << std::endl;
+            system("pause");
+            //debug//
         }
     }
     t = clock() - t;
@@ -225,4 +293,5 @@ void Decoding()
     writebin = fopen("original.bin","wb");
     fwrite(odata,sizeof(MB_BLOCK),SIZE,writebin);
     fclose(writebin);
+    std::cout << "Decode completed!";
 }

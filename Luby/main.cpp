@@ -4,6 +4,7 @@
 #include <exception>
 
 int K;
+bool chk = false;
 
 //Test function
 void MakeFile(int filesize)
@@ -117,6 +118,7 @@ int main(int argc, char* argv[])
     else if (!strcmp(argv[1],"-debug"))
     {
         if (!strcmp(argv[2],"read")) TestRead();
+        if (!strcmp(argv[2],"decode")) {chk = true; Decoding();}
     }
 
     return 0;
