@@ -90,11 +90,12 @@ void FormGraph(std::list<ENCODING_BLOCK> data, std::list<int> *_block_pos, DECOD
             system("pause");
         }
         tr.close();
+        exit(1);
     }
     //debug
     data.clear();
     delete _block_pos;
-    exit(1);
+
 }
 
 std::list<int>* Decoding_ENCODING_BLOCK(std::list<ENCODING_BLOCK> data, std::list<int> *_block_pos) //done

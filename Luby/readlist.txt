@@ -1,180 +1,600 @@
-Block: 0
-Degree: 13
+Block: 1
+Degree: 19
 Filesize: 5242880
 Seed: 2074924992
-Position: 0 3 5 10 12 13 15 16 17 21 23 25 29 
+Position: 11 25 27 28 33 35 40 41 42 45 49 50 56 63 65 67 72 74 75 
 -------------------
-Block: 1
+Block: 2
 Degree: 2
 Filesize: 5242880
 Seed: 277396911
-Position: 10 17 
+Position: 40 67 
 -------------------
-Block: 2
+Block: 3
 Degree: 1
 Filesize: 5242880
 Seed: 22885540
-Position: 17 
--------------------
-Block: 3
-Degree: 2
-Filesize: 5242880
-Seed: 237697967
-Position: 5 29 
+Position: 67 
 -------------------
 Block: 4
 Degree: 2
 Filesize: 5242880
-Seed: 670147949
-Position: 5 25 
+Seed: 237697967
+Position: 49 75 
 -------------------
 Block: 5
-Degree: 8
-Filesize: 5242880
-Seed: 1772333975
-Position: 5 12 13 15 16 17 23 25 
--------------------
-Block: 6
-Degree: 13
-Filesize: 5242880
-Seed: 2018933935
-Position: 0 3 4 5 11 12 13 15 16 17 23 25 28 
--------------------
-Block: 7
-Degree: 13
-Filesize: 5242880
-Seed: 1981022945
-Position: 0 3 4 11 12 13 15 16 17 20 23 25 28 
--------------------
-Block: 8
 Degree: 2
 Filesize: 5242880
-Seed: 466173527
-Position: 23 25 
+Seed: 670147949
+Position: 35 75 
+-------------------
+Block: 6
+Degree: 11
+Filesize: 5242880
+Seed: 1772333975
+Position: 25 27 33 35 45 50 56 63 65 72 74 
+-------------------
+Block: 7
+Degree: 18
+Filesize: 5242880
+Seed: 2018933935
+Position: 4 22 25 27 28 33 40 41 42 43 45 50 52 56 63 65 72 74 
+-------------------
+Block: 8
+Degree: 18
+Filesize: 5242880
+Seed: 1981022945
+Position: 4 22 25 27 28 33 40 41 42 43 50 52 53 56 63 65 72 74 
 -------------------
 Block: 9
 Degree: 2
 Filesize: 5242880
-Seed: 958124033
-Position: 15 25 
+Seed: 466173527
+Position: 25 33 
 -------------------
 Block: 10
+Degree: 2
+Filesize: 5242880
+Seed: 958124033
+Position: 25 65 
+-------------------
+Block: 11
 Degree: 4
 Filesize: 5242880
 Seed: 1358237425
-Position: 12 13 15 16 
--------------------
-Block: 11
-Degree: 1
-Filesize: 5242880
-Seed: 145234365
-Position: 13 
+Position: 56 63 65 72 
 -------------------
 Block: 12
+Degree: 2
+Filesize: 5242880
+Seed: 145234365
+Position: 56 63 
+-------------------
+Block: 13
 Degree: 4
 Filesize: 5242880
 Seed: 1412549563
-Position: 0 3 12 16 
--------------------
-Block: 13
-Degree: 2
-Filesize: 5242880
-Seed: 288787756
-Position: 0 12 
+Position: 33 50 56 72 
 -------------------
 Block: 14
 Degree: 2
 Filesize: 5242880
-Seed: 342772872
-Position: 0 3 
+Seed: 288787756
+Position: 50 72 
 -------------------
 Block: 15
-Degree: 4
-Filesize: 5242880
-Seed: 1432518450
-Position: 3 4 12 28 
--------------------
-Block: 16
 Degree: 2
 Filesize: 5242880
-Seed: 898422633
-Position: 4 12 
+Seed: 342772872
+Position: 33 50 
+-------------------
+Block: 16
+Degree: 5
+Filesize: 5242880
+Seed: 1432518450
+Position: 28 33 41 42 74 
 -------------------
 Block: 17
 Degree: 2
 Filesize: 5242880
-Seed: 831670774
-Position: 12 28 
+Seed: 898422633
+Position: 42 74 
 -------------------
 Block: 18
-Degree: 13
+Degree: 2
 Filesize: 5242880
-Seed: 2067123942
-Position: 2 3 7 8 11 12 14 18 20 23 24 27 28 
+Seed: 831670774
+Position: 28 42 
 -------------------
 Block: 19
-Degree: 1
+Degree: 18
 Filesize: 5242880
-Seed: 161652028
-Position: 11 
+Seed: 2067123942
+Position: 4 14 17 21 22 25 28 29 40 41 43 52 53 58 79 83 84 97 
 -------------------
 Block: 20
 Degree: 2
 Filesize: 5242880
-Seed: 318821141
-Position: 12 20 
+Seed: 161652028
+Position: 22 41 
 -------------------
 Block: 21
 Degree: 2
 Filesize: 5242880
-Seed: 455217522
-Position: 3 20 
+Seed: 318821141
+Position: 22 40 
 -------------------
 Block: 22
+Degree: 2
+Filesize: 5242880
+Seed: 455217522
+Position: 40 43 
+-------------------
+Block: 23
 Degree: 5
 Filesize: 5242880
 Seed: 1504141640
-Position: 2 3 18 23 24 
--------------------
-Block: 23
-Degree: 14
-Filesize: 5242880
-Seed: 2078534643
-Position: 2 5 6 7 8 9 13 14 18 21 23 24 25 27 
+Position: 4 43 52 53 58 
 -------------------
 Block: 24
+Degree: 20
+Filesize: 5242880
+Seed: 2078534643
+Position: 4 9 14 17 21 25 29 34 35 43 46 52 53 56 58 79 83 84 85 97 
+-------------------
+Block: 25
 Degree: 2
 Filesize: 5242880
 Seed: 815259152
-Position: 23 24 
--------------------
-Block: 25
-Degree: 3
-Filesize: 5242880
-Seed: 1114899804
-Position: 18 23 27 
+Position: 4 53 
 -------------------
 Block: 26
 Degree: 3
 Filesize: 5242880
-Seed: 1326185753
-Position: 8 18 27 
+Seed: 1114899804
+Position: 17 53 58 
 -------------------
 Block: 27
+Degree: 4
+Filesize: 5242880
+Seed: 1326185753
+Position: 17 58 84 97 
+-------------------
+Block: 28
 Degree: 2
 Filesize: 5242880
 Seed: 471178458
-Position: 8 27 
--------------------
-Block: 28
-Degree: 3
-Filesize: 5242880
-Seed: 1324137117
-Position: 7 8 14 
+Position: 17 58 
 -------------------
 Block: 29
+Degree: 4
+Filesize: 5242880
+Seed: 1324137117
+Position: 25 58 84 97 
+-------------------
+Block: 30
 Degree: 2
 Filesize: 5242880
 Seed: 399491558
-Position: 7 14 
+Position: 84 97 
+-------------------
+Block: 31
+Degree: 3
+Filesize: 5242880
+Seed: 1220734784
+Position: 25 79 97 
+-------------------
+Block: 32
+Degree: 18
+Filesize: 5242880
+Seed: 1978234897
+Position: 9 14 15 21 25 29 34 35 43 46 55 56 62 73 79 83 85 89 
+-------------------
+Block: 33
+Degree: 2
+Filesize: 5242880
+Seed: 852091025
+Position: 29 79 
+-------------------
+Block: 34
+Degree: 8
+Filesize: 5242880
+Seed: 1672898979
+Position: 14 21 29 35 43 46 83 85 
+-------------------
+Block: 35
+Degree: 6
+Filesize: 5242880
+Seed: 1557233529
+Position: 14 21 35 43 46 83 
+-------------------
+Block: 36
+Degree: 3
+Filesize: 5242880
+Seed: 1040715914
+Position: 21 43 83 
+-------------------
+Block: 37
+Degree: 1
+Filesize: 5242880
+Seed: 58061783
+Position: 43 
+-------------------
+Block: 38
+Degree: 2
+Filesize: 5242880
+Seed: 886811143
+Position: 21 35 
+-------------------
+Block: 39
+Degree: 3
+Filesize: 5242880
+Seed: 1098370221
+Position: 35 46 85 
+-------------------
+Block: 40
+Degree: 2
+Filesize: 5242880
+Seed: 538874735
+Position: 46 85 
+-------------------
+Block: 41
+Degree: 2
+Filesize: 5242880
+Seed: 929131746
+Position: 56 85 
+-------------------
+Block: 42
+Degree: 6
+Filesize: 5242880
+Seed: 1563657685
+Position: 9 34 55 56 62 89 
+-------------------
+Block: 43
+Degree: 7
+Filesize: 5242880
+Seed: 1637323456
+Position: 9 15 34 55 62 73 89 
+-------------------
+Block: 44
+Degree: 2
+Filesize: 5242880
+Seed: 639872334
+Position: 9 89 
+-------------------
+Block: 45
+Degree: 18
+Filesize: 5242880
+Seed: 1883697009
+Position: 2 8 10 11 15 17 40 49 54 55 62 71 73 74 78 83 84 89 
+-------------------
+Block: 46
+Degree: 3
+Filesize: 5242880
+Seed: 1091706189
+Position: 15 55 62 
+-------------------
+Block: 47
+Degree: 2
+Filesize: 5242880
+Seed: 205638555
+Position: 15 62 
+-------------------
+Block: 48
+Degree: 2
+Filesize: 5242880
+Seed: 866005862
+Position: 15 73 
+-------------------
+Block: 49
+Degree: 5
+Filesize: 5242880
+Seed: 1463846915
+Position: 2 10 40 73 78 
+-------------------
+Block: 50
+Degree: 4
+Filesize: 5242880
+Seed: 1302440373
+Position: 2 10 40 78 
+-------------------
+Block: 51
+Degree: 2
+Filesize: 5242880
+Seed: 814535140
+Position: 2 10 
+-------------------
+Block: 52
+Degree: 15
+Filesize: 5242880
+Seed: 1831332002
+Position: 2 8 10 11 17 20 33 49 54 71 74 78 83 84 89 
+-------------------
+Block: 53
+Degree: 5
+Filesize: 5242880
+Seed: 1461328810
+Position: 8 17 78 83 89 
+-------------------
+Block: 54
+Degree: 18
+Filesize: 5242880
+Seed: 1930322578
+Position: 1 2 8 11 17 20 31 33 39 49 54 60 71 74 76 83 84 89 
+-------------------
+Block: 55
+Degree: 2
+Filesize: 5242880
+Seed: 896113217
+Position: 8 83 
+-------------------
+Block: 56
+Degree: 2
+Filesize: 5242880
+Seed: 672021708
+Position: 83 89 
+-------------------
+Block: 57
+Degree: 3
+Filesize: 5242880
+Seed: 1052346783
+Position: 49 71 89 
+-------------------
+Block: 58
+Degree: 2
+Filesize: 5242880
+Seed: 117065189
+Position: 49 71 
+-------------------
+Block: 59
+Degree: 2
+Filesize: 5242880
+Seed: 419610871
+Position: 49 84 
+-------------------
+Block: 60
+Degree: 1
+Filesize: 5242880
+Seed: 63612149
+Position: 84 
+-------------------
+Block: 61
+Degree: 15
+Filesize: 5242880
+Seed: 1830015684
+Position: 1 2 8 11 20 31 33 39 40 54 60 74 76 83 98 
+-------------------
+Block: 62
+Degree: 2
+Filesize: 5242880
+Seed: 812808654
+Position: 2 11 
+-------------------
+Block: 63
+Degree: 2
+Filesize: 5242880
+Seed: 731569211
+Position: 2 74 
+-------------------
+Block: 64
+Degree: 3
+Filesize: 5242880
+Seed: 1139850202
+Position: 20 33 74 
+-------------------
+Block: 65
+Degree: 18
+Filesize: 5242880
+Seed: 1908213774
+Position: 1 8 15 20 22 31 33 39 40 45 60 76 80 83 85 87 89 98 
+-------------------
+Block: 66
+Degree: 2
+Filesize: 5242880
+Seed: 828115320
+Position: 1 33 
+-------------------
+Block: 67
+Degree: 2
+Filesize: 5242880
+Seed: 292667033
+Position: 1 39 
+-------------------
+Block: 68
+Degree: 3
+Filesize: 5242880
+Seed: 1117272001
+Position: 39 60 83 
+-------------------
+Block: 69
+Degree: 2
+Filesize: 5242880
+Seed: 393511439
+Position: 60 83 
+-------------------
+Block: 70
+Degree: 7
+Filesize: 5242880
+Seed: 1644606160
+Position: 8 31 40 76 83 85 98 
+-------------------
+Block: 71
+Degree: 2
+Filesize: 5242880
+Seed: 633710583
+Position: 8 31 
+-------------------
+Block: 72
+Degree: 4
+Filesize: 5242880
+Seed: 1402363008
+Position: 31 40 76 98 
+-------------------
+Block: 73
+Degree: 2
+Filesize: 5242880
+Seed: 882049631
+Position: 40 76 
+-------------------
+Block: 74
+Degree: 2
+Filesize: 5242880
+Seed: 528532976
+Position: 40 98 
+-------------------
+Block: 75
+Degree: 3
+Filesize: 5242880
+Seed: 1061363640
+Position: 15 85 98 
+-------------------
+Block: 76
+Degree: 4
+Filesize: 5242880
+Seed: 1339525498
+Position: 15 22 85 89 
+-------------------
+Block: 77
+Degree: 4
+Filesize: 5242880
+Seed: 1333973385
+Position: 15 22 87 89 
+-------------------
+Block: 78
+Degree: 2
+Filesize: 5242880
+Seed: 361407015
+Position: 22 89 
+-------------------
+Block: 79
+Degree: 3
+Filesize: 5242880
+Seed: 1083947389
+Position: 22 45 87 
+-------------------
+Block: 80
+Degree: 2
+Filesize: 5242880
+Seed: 799989422
+Position: 45 87 
+-------------------
+Block: 81
+Degree: 1
+Filesize: 5242880
+Seed: 27101687
+Position: 45 
+-------------------
+Block: 82
+Degree: 2
+Filesize: 5242880
+Seed: 231520245
+Position: 85 98 
+-------------------
+Block: 83
+Degree: 18
+Filesize: 5242880
+Seed: 2067872998
+Position: 3 5 10 22 35 40 45 65 69 72 73 80 82 83 85 89 90 92 
+-------------------
+Block: 84
+Degree: 18
+Filesize: 5242880
+Seed: 2013617985
+Position: 3 5 10 22 35 40 45 50 65 69 72 73 80 82 83 89 90 92 
+-------------------
+Block: 85
+Degree: 2
+Filesize: 5242880
+Seed: 682680822
+Position: 3 80 
+-------------------
+Block: 86
+Degree: 18
+Filesize: 5242880
+Seed: 1958933080
+Position: 3 5 10 35 40 45 50 53 63 65 69 72 73 82 83 89 90 92 
+-------------------
+Block: 87
+Degree: 2
+Filesize: 5242880
+Seed: 716483403
+Position: 73 92 
+-------------------
+Block: 88
+Degree: 3
+Filesize: 5242880
+Seed: 995745492
+Position: 35 45 73 
+-------------------
+Block: 89
+Degree: 2
+Filesize: 5242880
+Seed: 154422973
+Position: 35 45 
+-------------------
+Block: 90
+Degree: 3
+Filesize: 5242880
+Seed: 1226661635
+Position: 45 82 89 
+-------------------
+Block: 91
+Degree: 2
+Filesize: 5242880
+Seed: 659088245
+Position: 82 89 
+-------------------
+Block: 92
+Degree: 2
+Filesize: 5242880
+Seed: 575482489
+Position: 82 90 
+-------------------
+Block: 93
+Degree: 18
+Filesize: 5242880
+Seed: 2015330182
+Position: 5 10 18 29 40 44 45 50 53 57 63 65 69 70 72 83 89 90 
+-------------------
+Block: 94
+Degree: 6
+Filesize: 5242880
+Seed: 1542288390
+Position: 10 40 65 69 72 89 
+-------------------
+Block: 95
+Degree: 3
+Filesize: 5242880
+Seed: 1113351440
+Position: 65 69 89 
+-------------------
+Block: 96
+Degree: 3
+Filesize: 5242880
+Seed: 1072635769
+Position: 65 72 89 
+-------------------
+Block: 97
+Degree: 14
+Filesize: 5242880
+Seed: 1811636665
+Position: 5 10 18 29 44 45 50 53 57 63 70 72 83 89 
+-------------------
+Block: 98
+Degree: 3
+Filesize: 5242880
+Seed: 1154281489
+Position: 5 10 72 
+-------------------
+Block: 99
+Degree: 12
+Filesize: 5242880
+Seed: 1789202272
+Position: 5 10 44 45 50 53 57 63 70 72 83 89 
+-------------------
+Block: 100
+Degree: 18
+Filesize: 5242880
+Seed: 2056560210
+Position: 5 9 18 24 29 33 44 45 50 53 57 63 70 72 78 83 89 98 
 -------------------
