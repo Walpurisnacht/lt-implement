@@ -3,8 +3,8 @@
 #include <bits/stdc++.h>
 #include <exception>
 
-int K;
-bool chk = false;
+int K,k;
+bool test = false;
 
 //Test function
 void MakeFile(int filesize)
@@ -29,12 +29,17 @@ void TestRead()
     rf = fopen("encoded.lt","rb");
     int i=0;
 
+    FILE *chk;
+    chk = fopen("data.bin","rb");
+    fseek(chk,0,SEEK_END);
+    k = (unsigned int) ftell(chk) / (1024*1024);
+
     while(!feof(rf))
         {
             if (!fread(&buffer,sizeof(ENCODING_BLOCK),1,rf)) break;
             data.push_back(buffer);
             //std::cout << data[i].d << " " << data[i].seed << " " << data[i].DATA.byte[10] << std::endl;
-            printf("%d %u %c %d\n",buffer.d,buffer.seed,buffer.DATA.byte[10],buffer.filesize/(1024*1024));
+            printf("%d %u %c %d\n",buffer.d,buffer.seed,buffer.DATA.byte[10],buffer.filesize);
             //wr <<data[i].d << " "<< data[i].seed << "\n";
             i++;
         }
@@ -42,12 +47,6 @@ void TestRead()
     system("pause");
     fclose(rf);
 
-    FILE *chk;
-    chk = fopen("data.bin","rb");
-    fseek(chk,0,SEEK_END);
-    unsigned long length = (unsigned long) ftell(chk);
-    std::cout << "File size in original MB: " << length/(1024*1024) << std::endl;
-    fclose(chk);
 
 //    FILE *wr;
 //    wr = fopen("list.txt","w");
@@ -77,12 +76,20 @@ int main(int argc, char* argv[])
 {
     //IDE debug section//
     //TestRead();
-    Decoding();
+//    FILE *chk;
+//    chk = fopen("data.bin","rb");
+//    fseek(chk,0,SEEK_END);
+//    k = (unsigned int) ftell(chk) / (1024*1024);
+//    fclose(chk);
+//    test = true;
+//    Decoding();
+//    K = 100;
+//    Encoding(123456);
 
 
 
 
-
+//    exit(9);
 
     //Main section//
     int n;
@@ -99,26 +106,36 @@ int main(int argc, char* argv[])
     }
     else if (!strcmp(argv[1],"-make"))
     {
-        MakeFile(atoi(argv[2])); // main makefile [filesize]
+        MakeFile(k=atoi(argv[2])); // main makefile [filesize]
     }
 
     else if (!strcmp(argv[1],"-encode")) //main encode [seed] [K]
     {
         n = atoi(argv[2]); //initial seed
         K = atoi(argv[3]);
-        std::cout << K << std::endl;
+        FILE *chek;
+        chek = fopen("data.bin","rb");
+        fseek(chek,0,SEEK_END);
+        k = (int) ftell(chek) / (1024*1024);
+        fclose(chek);
+        std::cout << k << std::endl;
         Encoding(n);
     }
 
     else if (!strcmp(argv[1],"-decode"))
     {
+        FILE *chek;
+        chek = fopen("data.bin","rb");
+        fseek(chek,0,SEEK_END);
+        k = (int) ftell(chek) / (1024*1024);
+        fclose(chek);
         Decoding(); //ERROR
     }
 
     else if (!strcmp(argv[1],"-debug"))
     {
         if (!strcmp(argv[2],"read")) TestRead();
-        if (!strcmp(argv[2], "decode")) {chk = true; Decoding();}
+        if (!strcmp(argv[2], "decode")) {test = true; Decoding();}
     }
 
     return 0;

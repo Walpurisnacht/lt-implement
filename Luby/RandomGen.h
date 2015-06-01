@@ -3,14 +3,14 @@
 
 #include "Luby.h"
 
-extern int K;
+extern int K,k;
 
 class RandomGen
 {
 
 private:
 
-    double* M = new double[K+1];
+    double* M = new double[k+1];
     int degree;
     uint32_t seed;
 
@@ -18,7 +18,7 @@ private:
     double ISD(int i)     /// Ideal Soliton Distribution
     {
         if(i==1)
-            return 1/(double)K;
+            return 1/(double)k;
         return 1/(double)(i*(i-1));
     }
 
@@ -26,10 +26,10 @@ private:
 
     double NNF(int i)    /// non-negative function
     {
-        if (i < (int)((double)K/(double)S(K)))
-            return (double)S(K)/(double)((double)K*(double)i);
-        else if ( i == (int)((double)K/(double)S(K)) )
-                return (double)S(K)*log(S(K)/DELTA)/(double)K;
+        if (i < (int)((double)k/(double)S(k)))
+            return (double)S(k)/(double)((double)k*(double)i);
+        else if ( i == (int)((double)k/(double)S(k)) )
+                return (double)S(k)*log(S(k)/DELTA)/(double)k;
         return 0;
     }
 
@@ -56,7 +56,7 @@ public:
 
     RandomGen()
     {
-        for(int i = 0; i <=K; ++i)
+        for(int i = 0; i <=k; ++i)
             M[i] = 0;
         InitCDF();
     }
