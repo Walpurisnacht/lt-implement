@@ -10,7 +10,7 @@
 #include <list>
 #include <bits/stdc++.h>
 
-extern int K;
+extern int K,k;
 
 #define C 0.1
 #define DELTA 0.5

@@ -38,6 +38,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Decoder.cpp" />
 		<Unit filename="Decoder.h" />
 		<Unit filename="Encoder.cpp">
 			<Option target="Debug" />

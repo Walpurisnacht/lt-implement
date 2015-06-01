@@ -7,9 +7,9 @@
 void RandomGen::InitCDF()
 {
     double Z = 1;
-    for (int i = 1; i<=K; ++i)
+    for (int i = 1; i<=k; ++i)
         Z+= NNF(i);
-    for (int i = 1; i<=K; ++i)
+    for (int i = 1; i<=k; ++i)
         M[i]=M[i-1] + RSD(i)/Z;
 }
 
@@ -47,7 +47,7 @@ void RandomGen::RandomGenerator() /// RandomGenerator d va seed.
     Random *pseudo = new Random;
     pseudo -> setSeed(seed);
     temp = (double)pseudo -> nextInt()/(double)pseudo -> getMAX_RAND();
-    degree = BinarySearch(K,temp);
+    degree = BinarySearch(k,temp);
     seed = pseudo -> getState();
     delete pseudo;
 }
