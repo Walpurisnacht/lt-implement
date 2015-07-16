@@ -46,6 +46,7 @@
 		<Unit filename="Encoder.h">
 			<Option target="Debug" />
 		</Unit>
+		<Unit filename="Luby.cpp" />
 		<Unit filename="Luby.h">
 			<Option target="Debug" />
 		</Unit>

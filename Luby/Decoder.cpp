@@ -2,22 +2,23 @@
 #include "Encoder.h"
 #include "Luby.h"
 
-///int BoolChk(int *check)
+///uint32_t BoolChk(uint32_t *check)
 ///{
-///    for (int i = 0; i < K; i++)
+///    for (uint32_t i = 0; i < block; i++)
 ///
 ///}
 
-extern int K,k;
+extern uint32_t block,f_size;
+extern const uint32_t SIZE;
 
-bool IntCmpr(const int& first, const int& second)
+bool IntCmpr(const uint32_t& first, const uint32_t& second)
 {
     return first < second;
 }
 
-std::list<int>::iterator ListSearch(std::list<int> _block_pos, int n)
+std::list<uint32_t>::iterator ListSearch(std::list<uint32_t> ui31_l_blockpos, uint32_t n)
 {
-    return std::lower_bound(_block_pos.begin(),_block_pos.end(),n);
+    return std::lower_bound(ui31_l_blockpos.begin(),ui31_l_blockpos.end(),n);
 }
 
 void ReadES(std::list<ENCODING_BLOCK> &data) ///done
@@ -25,37 +26,37 @@ void ReadES(std::list<ENCODING_BLOCK> &data) ///done
     FILE *read;
     read = fopen("encoded.lt","rb");
     ENCODING_BLOCK buffer;
-    K = 0;
+    block = 0;
     while(!feof(read))
     {
         if (!fread(&buffer,sizeof(ENCODING_BLOCK),1,read)) break;
         data.push_back(buffer);
-        K++;
+        block++;
     }
     ///debug///
-    std::cout << K << std::endl;
+    std::cout << block << std::endl;
     ///debug///
     fclose(read);
 }
 
-void ReInitBool(bool* check, Random* pseudo, int seed, uint32_t &temp)
+void ReInitBool(bool* check, Random* pseudo, uint32_t ui32_seed, uint32_t &temp)
 {
-    for (int i = 0; i < k; i++) check[i] = false;
-    pseudo -> setSeed(seed);
-    temp = pseudo -> nextInt() % k;
+    for (uint32_t i = 0; i < f_size; i++) check[i] = false;
+    pseudo -> setSeed(ui32_seed);
+    temp = pseudo -> nextInt() % f_size;
     check[temp] = true;
 }
 
-void FormGraph(std::list<ENCODING_BLOCK> data, std::list<int> *_block_pos, DECODING_BLOCK *gdata)
+void FormGraph(std::list<ENCODING_BLOCK> data, std::list<uint32_t> *ui31_l_blockpos, DECODING_BLOCK *gdata)
 {
-    ///for (int i = 0; i < K; i++)
+    ///for (uint32_t i = 0; i < block; i++)
     std::list<ENCODING_BLOCK>::iterator it;
-    int i;
+    uint32_t i;
     for (it = data.begin(), i = 0; it != data.end(); it++, i++)
     {
-        gdata[i]._encode = *it;
-        gdata[i]._block_pos = _block_pos[i];
-        ///d from _encode;
+        gdata[i].EB_encode = *it;
+        gdata[i].ui31_l_blockpos = ui31_l_blockpos[i];
+        ///ui32_deg from EB_encode;
     }
     extern bool test;
     ///debug
@@ -65,22 +66,22 @@ void FormGraph(std::list<ENCODING_BLOCK> data, std::list<int> *_block_pos, DECOD
         ofstream tr;
         tr.open("readlist.txt");
 
-        for (int i = 0; i < K; i++)
+        for (uint32_t i = 0; i < block; i++)
         {
             cout << "Block: " << i+1 << endl;
-            cout << "Degree: " << gdata[i]._encode.d << endl;
-            cout << "Filesize: " << gdata[i]._encode.filesize << endl;
-            cout << "Seed: " << gdata[i]._encode.seed << endl;
+            cout << "Degree: " << gdata[i].EB_encode.ui32_deg << endl;
+            cout << "Filesize: " << gdata[i].EB_encode.ui64_f_size << endl;
+            cout << "Seed: " << gdata[i].EB_encode.ui32_seed << endl;
 
             tr  << "Block: " << i+1
-                << "\nDegree: " << gdata[i]._encode.d
-                << "\nFilesize: " << gdata[i]._encode.filesize
-                << "\nSeed: " << gdata[i]._encode.seed
+                << "\nDegree: " << gdata[i].EB_encode.ui32_deg
+                << "\nFilesize: " << gdata[i].EB_encode.ui64_f_size
+                << "\nSeed: " << gdata[i].EB_encode.ui32_seed
                 << "\nPosition: ";
 
-            list<int>::iterator jt;
+            list<uint32_t>::iterator jt;
             cout << "Position: ";
-            for (jt = gdata[i]._block_pos.begin(); jt != gdata[i]._block_pos.end(); jt++)
+            for (jt = gdata[i].ui31_l_blockpos.begin(); jt != gdata[i].ui31_l_blockpos.end(); jt++)
             {
                 cout << *jt << " ";
                 tr << *jt << " ";
@@ -94,75 +95,75 @@ void FormGraph(std::list<ENCODING_BLOCK> data, std::list<int> *_block_pos, DECOD
     }
     ///debug
     data.clear();
-    delete _block_pos;
+    delete ui31_l_blockpos;
 
 }
 
-std::list<int>* Decoding_ENCODING_BLOCK(std::list<ENCODING_BLOCK> data, std::list<int> *_block_pos) ///done
+void Decoding_ENCODING_BLOCK(std::list<ENCODING_BLOCK> data, std::list<uint32_t> *ui31_l_blockpos) ///done
 {
     {
-///    bool *check = new bool[K];
+///    bool *check = new bool[block];
 ///    check = ReInitBool(check);
 ///
 ///            ///-Test-///
-//////    for (int i = 0; i < K; i++)
+//////    for (uint32_t i = 0; i < block; i++)
 //////        std::cout << check[i] << std::endl;
 //////    system("pause");
 ///    ///------///
 ///    Random *pseudo = new Random;
-///    pseudo -> setSeed(seed);
-///    uint32_t temp = pseudo -> nextInt() % K;
+///    pseudo -> setSeed(ui32_seed);
+///    uint32_t temp = pseudo -> nextInt() % block;
 ///
 ///    check[temp] = true;
     }
 
-    bool *check = new bool[k];
+    bool *check = new bool[f_size];
     Random *pseudo = new Random;
     uint32_t temp;
 
     ///clock_t t = clock();
     std::list<ENCODING_BLOCK>::iterator it;
-    int i;
+    uint32_t i;
     for (it = data.begin(), i = 0; it != data.end(); it++, i++)
     {
-        ReInitBool(check,pseudo,(*it).seed,temp);
-        int deg = (*it).d;
+        ReInitBool(check,pseudo,(*it).ui32_seed,temp);
+        uint32_t deg = (*it).ui32_deg;
 
-        _block_pos[i].push_back(temp);
+        ui31_l_blockpos[i].push_back(temp);
 
         while (--deg)
         {
-            while (check[temp]) temp = pseudo -> nextInt() % k;
+            while (check[temp]) temp = pseudo -> nextInt() % f_size;
             check[temp] = true;
 
-            _block_pos[i].push_back(temp);
+            ui31_l_blockpos[i].push_back(temp);
         }
-        _block_pos[i].sort(IntCmpr);
+        ui31_l_blockpos[i].sort(IntCmpr);
     }
 
 {
-///    for (int i = 0; i < K; i++)
+///    for (uint32_t i = 0; i < block; i++)
 ///    {
 ///
-///        ReInitBool(check,pseudo,data[i].seed,temp);
-///        int degree = data[i].d;
-///        _block_pos[i].push_back(temp);
-///        while (--degree)
+///        ReInitBool(check,pseudo,data[i].ui32_seed,temp);
+///        uint32_t ui32_deg = data[i].ui32_deg;
+///        ui31_l_blockpos[i].push_back(temp);
+///        while (--ui32_deg)
 ///        {
-///            while(check[temp]) temp = pseudo -> nextInt() % K;
+///            while(check[temp]) temp = pseudo -> nextInt() % block;
 ///            check[temp] = true;
 ///
-///            _block_pos[i].push_back(temp);
+///            ui31_l_blockpos[i].push_back(temp);
 ///        }
-///        _block_pos[i].sort(IntCmpr);
+///        ui31_l_blockpos[i].sort(IntCmpr);
 ///    }
 
     ///Debug///
-    /*std::list<int>::iterator it;
-    for (int i = 0; i < K; i++)
+    /*std::list<uint32_t>::iterator it;
+    for (uint32_t i = 0; i < block; i++)
     {
-        std::cout << _block_pos[i].size() << std::endl;
-        for (it = _block_pos[i].begin(); it != _block_pos[i].end(); ++it)
+        std::cout << ui31_l_blockpos[i].size() << std::endl;
+        for (it = ui31_l_blockpos[i].begin(); it != ui31_l_blockpos[i].end(); ++it)
             std::cout << *it << " ";
         system("pause");
     }*/
@@ -171,36 +172,36 @@ std::list<int>* Decoding_ENCODING_BLOCK(std::list<ENCODING_BLOCK> data, std::lis
     ///std::cout << (float)t/CLOCKS_PER_SEC <<std::endl;
 }
 
-    return _block_pos;
+//    return ui31_l_blockpos;
 }
 
-bool ScanList(int n, std::list<int> ripple)
+bool ScanList(uint32_t n, std::list<uint32_t> ripple)
 {
-    std::list<int>::iterator it;
+    std::list<uint32_t>::iterator it;
     for (it = ripple.begin(); it != ripple.end(); it++)
         if (*it == n) return true;
     return false;
 }
 
-void ScanDeg(DECODING_BLOCK *gdata, MB_BLOCK *odata, std::list<int> &ripple, std::list<int> offripple)
+void ScanDeg(DECODING_BLOCK *gdata, MB_BLOCK *odata, std::list<uint32_t> &ripple, std::list<uint32_t> offripple)
 {
-    for (int i = 0; i < K; i++)
+    for (uint32_t i = 0; i < block; i++)
     {
-        //std::cout << gdata[i]._encode.d << "-" << *gdata[i]._block_pos.begin() << std::endl;
-        if (gdata[i]._encode.d == 1)
+        //std::cout << gdata[i].EB_encode.ui32_deg << "-" << *gdata[i].ui31_l_blockpos.begin() << std::endl;
+        if (gdata[i].EB_encode.ui32_deg == 1)
         {
-            int tmp = *gdata[i]._block_pos.begin(); ///position of d=1 encoding symbol
-            ///odata[tmp] = gdata[i]._encode.DATA; ///XOR data to original position
-            for (register int j = 0; j < SIZE; ++j)
-                odata[tmp].byte[j] = gdata[i]._encode.DATA.byte[j];
+            uint32_t tmp = *gdata[i].ui31_l_blockpos.begin(); ///position of ui32_deg=1 encoding symbol
+            ///odata[tmp] = gdata[i].EB_encode.MB_DATA; ///XOR data to original position
+            for (uint32_t j = 0; j < SIZE; ++j)
+                odata[tmp].c_byte[j] = gdata[i].EB_encode.MB_DATA.c_byte[j];
 
             ///debug///
 //            std::cout << "Block: " << tmp << std::endl;
-//            for (int i = 0; i < 10; i++)
-//            std::cout << odata[tmp].byte[i] << std::endl;
+//            for (uint32_t i = 0; i < 10; i++)
+//            std::cout << odata[tmp].c_byte[i] << std::endl;
 //            system("pause");
             ///debug///
-            gdata[i]._encode.d--;
+            gdata[i].EB_encode.ui32_deg--;
             if (!ScanList(tmp,ripple) && !ScanList(tmp,offripple))  ripple.push_back(tmp); ///push position in ripple
 
             {
@@ -208,8 +209,8 @@ void ScanDeg(DECODING_BLOCK *gdata, MB_BLOCK *odata, std::list<int> &ripple, std
             /*
             using namespace std;
             cout << "Position: " << i << endl;
-            cout << "Degree: " << gdata[i]._encode.d << endl;
-            list<int>::iterator ri,ori;
+            cout << "Degree: " << gdata[i].EB_encode.ui32_deg << endl;
+            list<uint32_t>::iterator ri,ori;
             cout << "Ripple: ";
             for (ri = ripple.begin(); ri != ripple.end(); ri++)
             {
@@ -234,66 +235,66 @@ void ScanDeg(DECODING_BLOCK *gdata, MB_BLOCK *odata, std::list<int> &ripple, std
 void Decoding()
 {
     std::list<ENCODING_BLOCK> data;
-    ReadES(data); ///K get!
+    ReadES(data); ///block get!
 
-    unsigned int _size = (*data.begin()).filesize;
+    uint64_t _size = (*data.begin()).ui64_f_size;
 
-    std::list<int> *_block_pos = new std::list<int>[K]; ///array of block_pos for each es
-    Decoding_ENCODING_BLOCK(data,_block_pos);
+    std::list<uint32_t> *ui31_l_blockpos = new std::list<uint32_t>[block]; ///array of block_pos for each es
+    Decoding_ENCODING_BLOCK(data,ui31_l_blockpos);
 
     ///Test///
-///    std::list<int>::iterator it;
-///    for (it = _block_pos[0].begin(); it != _block_pos[0].end(); ++it)
+///    std::list<uint32_t>::iterator it;
+///    for (it = ui31_l_blockpos[0].begin(); it != ui31_l_blockpos[0].end(); ++it)
 ///        std::cout << *it << " ";
     ///Test///
 
-    DECODING_BLOCK *gdata = new DECODING_BLOCK[K];
-    FormGraph(data,_block_pos,gdata); ///main is gdata, deleted former
+    DECODING_BLOCK *gdata = new DECODING_BLOCK[block];
+    FormGraph(data,ui31_l_blockpos,gdata); ///main is gdata, deleted former
 
     ///Test///
-///    std::list<int>::iterator it;
-///    for (it = gdata[0]._block_pos.begin(); it != gdata[0]._block_pos.end(); ++it)
+///    std::list<uint32_t>::iterator it;
+///    for (it = gdata[0].ui31_l_blockpos.begin(); it != gdata[0].ui31_l_blockpos.end(); ++it)
 ///    std::cout << *it << " ";
 ///    std::cout << gdata[0]._d;
     ///Test///
 
     ///Main decoder///
-    ///int *check = new int[K]; /// 0 = out 1 = in 2 = off ripple
-    ///for (int i = 0; i < K; i++) check[i] = 0;
+    ///uint32_t *check = new uint32_t[block]; /// 0 = out 1 = in 2 = off ripple
+    ///for (uint32_t i = 0; i < block; i++) check[i] = 0;
 
-    MB_BLOCK *odata = new MB_BLOCK[K]; ///INIT BLANK ORIGINAL DATA
+    MB_BLOCK *odata = new MB_BLOCK[block]; ///INIT BLANK ORIGINAL MB_DATA
 ///    MB_BLOCK *buffer = new MB_BLOCK;
-///    std::fill(buffer->byte,buffer->byte+SIZE,0);
-///    std::fill(odata,odata+K,buffer);
-    for (int i = 0; i < K; i++)
-        std::fill(odata->byte,odata->byte+SIZE,0);
+///    std::fill(buffer->c_byte,buffer->c_byte+SIZE,0);
+///    std::fill(odata,odata+block,buffer);
+    for (uint32_t i = 0; i < block; i++)
+        std::fill(odata->c_byte,odata->c_byte+SIZE,0);
 
 
-    std::list<int> ripple;
-    std::list<int> offripple;
+    std::list<uint32_t> ripple;
+    std::list<uint32_t> offripple;
     clock_t t = clock(); ///offripple.size()!=_size && it != ripple.end()
     while(1) ///stop when ripple is empty
     {
-        std::list<int>::iterator it;
+        std::list<uint32_t>::iterator it;
         ScanDeg(gdata,odata,ripple,offripple); ///work
 
         if (offripple.size() == _size) break;
-        if (ripple.size() == 0) {std::cout << "Decode failed!"; return;} ///release d = 1 encoding symbols and add them to ripple
+        if (ripple.size() == 0) {std::cout << "Decode failed!"; return;} ///release ui32_deg = 1 encoding symbols and add them to ripple
         for (it = ripple.begin(); it != ripple.end();) ///process ripple
         {
-            ///std::list<int>::iterator _posit;
-            for (int z  = 0; z < K; z++)///update
+            ///std::list<uint32_t>::iterator _posit;
+            for (uint32_t z  = 0; z < block; z++)///update
             {
-                if (!ScanList(*it,gdata[z]._block_pos)) continue;
-                int _bget = *it;
-                gdata[z]._block_pos.remove(*it); ///remove position which is in ripple
-                gdata[z]._encode.d--;
+                if (!ScanList(*it,gdata[z].ui31_l_blockpos)) continue;
+                uint32_t _bget = *it;
+                gdata[z].ui31_l_blockpos.remove(*it); ///remove position which is in ripple
+                gdata[z].EB_encode.ui32_deg--;
 
-                XOR<long long> (gdata[z]._encode.DATA.byte,odata[_bget].byte,gdata[z]._encode.DATA.byte,SIZE);
+                XOR(gdata[z].EB_encode.MB_DATA.c_byte,odata[_bget].c_byte,gdata[z].EB_encode.MB_DATA.c_byte,SIZE);
 
 //                ScanDeg(gdata,odata,ripple,offripple); ///update ripple + release encoding symbol
             }
-            std::list<int>::iterator tmp;
+            std::list<uint32_t>::iterator tmp;
             tmp = it;
             it++;
             offripple.push_back(*tmp);
@@ -303,10 +304,10 @@ void Decoding()
             ///debug///
             /*
             std::cout << "Ripple: ";
-            for (std::list<int>::iterator ri = ripple.begin(); ri != ripple.end(); ri++)
+            for (std::list<uint32_t>::iterator ri = ripple.begin(); ri != ripple.end(); ri++)
                 std::cout << *ri << " ";
             std::cout << "Offripple: ";
-            for (std::list<int>::iterator ori = offripple.begin(); ori != offripple.end(); ori++)
+            for (std::list<uint32_t>::iterator ori = offripple.begin(); ori != offripple.end(); ori++)
                 std::cout << *ori << " ";
             std::cout << "\n----------" << std::endl;
             system("pause"); */
@@ -319,10 +320,10 @@ void Decoding()
     std::cout << (float)t/CLOCKS_PER_SEC <<std::endl;
     {
     ///debug///
-    /*for (int i = 0; i < k; i++)
+    /*for (uint32_t i = 0; i < f_size; i++)
         {
-            for (int j = 0; j < 26; j++)
-                std::cout << odata[i].byte[j] << std::endl;
+            for (uint32_t j = 0; j < 26; j++)
+                std::cout << odata[i].c_byte[j] << std::endl;
             system("pause");
         }
     */
@@ -334,7 +335,7 @@ void Decoding()
     FILE *writebin;
     writebin = fopen("original.bin","wb");
 //    fwrite(odata,sizeof(MB_BLOCK),sizeof(odata),writebin);
-    for (int i = 0; i < k; i++)
+    for (uint32_t i = 0; i < f_size; i++)
         fwrite(&odata[i],sizeof(MB_BLOCK),1,writebin);
     fclose(writebin);
     std::cout << "Decode completed!";
