@@ -8,11 +8,11 @@ void ReadD(MB_BLOCK data); /* Read data from source */
 
 
 
-void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, uint32_t ui32_deg, uint32_t ui32_seed, uint64_t ui64_f_size);
+void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int32_t i32_deg, int32_t i32_seed, uint64_t ui64_f_size);
 
 
 
-void Encoding(uint32_t ui32_seed);
+void Encoding(int32_t i32_seed);
 
 
 

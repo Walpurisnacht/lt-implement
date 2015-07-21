@@ -9,16 +9,16 @@
 #include <time.h>
 #include <list>
 
-extern uint32_t block,f_size;
+extern int32_t block,f_size;
 
 /* List of constant using in Random module */
 const float C = 0.1;
 const float DELTA = 0.5;
-const uint32_t SIZE = 1 << 20;
+const int32_t SIZE = 1 << 20;
 
 
 /* List of tooltip */
-void XOR(char* c_input1, char* c_input2, char* c_output, uint32_t ui32_size); /* Fast XOR operation */
+void XOR(char* c_input1, char* c_input2, char* c_output, int32_t i32_size); /* Fast XOR operation */
 
 
 uint64_t GetFileSize(std::string path); /* Get ui64_f_size in c_byte from path */
@@ -33,50 +33,53 @@ typedef struct MB_BLOCK
 
 typedef struct ENCODING_BLOCK
 {
-    uint32_t ui32_deg;
+    int32_t i32_deg;
     uint64_t ui64_f_size;
-    uint32_t ui32_seed;
+    int32_t i32_seed;
     MB_BLOCK MB_DATA;
 } ENCODING_BLOCK;
 
 
 typedef struct DECODING_BLOCK
 {
-    std::list<uint32_t> ui31_l_blockpos;
+    std::list<int32_t> i32_l_blockpos;
     ENCODING_BLOCK EB_encode;
 } DECODING_BLOCK;
 
 class Random
 {
 private:
-    uint32_t _M ;
-    uint32_t A ;
-    uint32_t _state;
-    uint32_t _MAX_RAND ;
+    int32_t _M ;
+    int32_t A ;
+    int32_t _state;
+    int32_t _MAX_RAND ;
 public:
     Random(): _M(2147483647UL), A(16807), _MAX_RAND(_M-1)
     {}
-    void setSeed(uint32_t s)
+    void setSeed(int32_t s)
     {
         _state = s;
     }
 
-    uint32_t getState()
+    int32_t getState()
     {
         return _state;
     }
 
-    uint32_t getMAX_RAND()
+    int32_t getMAX_RAND()
     {
         return _MAX_RAND;
     }
 
-    uint32_t nextInt()
+    int32_t nextInt()
     {
-        uint32_t next = (uint32_t)(((uint64_t)_state * A) % _M);
+        int32_t next = (int32_t)(((uint64_t)_state * A) % _M);
         _state = next;
         return next;
     }
+
+    void RandomBack(int32_t,std::list<int32_t>&);
+
 };
 
 #endif // LUBY_H_INCLUDED

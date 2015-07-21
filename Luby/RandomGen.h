@@ -3,10 +3,10 @@
 
 #include "Luby.h"
 
-extern uint32_t block,f_size;
+extern int32_t block,f_size;
 extern const float C;
 extern const float DELTA;
-extern const uint32_t SIZE;
+extern const int32_t SIZE;
 
 inline double S(double x)
 {
@@ -19,11 +19,11 @@ class RandomGen
 private:
 
     double* _M = new double[f_size+1];
-    uint32_t _degree;
-    uint32_t _ui32_seed;
+    int32_t _degree;
+    int32_t _i32_seed;
 
 
-    double ISD(uint32_t i)     /// Ideal Soliton Distribution
+    double ISD(int32_t i)     /// Ideal Soliton Distribution
     {
         if(i==1)
             return 1/(double)f_size;
@@ -32,11 +32,11 @@ private:
 
 
 
-    double NNF(uint32_t i)    /// non-negative function
+    double NNF(int32_t i)    /// non-negative function
     {
-        if (i < (uint32_t)((double)f_size/(double)S(f_size)))
+        if (i < (int32_t)((double)f_size/(double)S(f_size)))
             return (double)S(f_size)/(double)((double)f_size*(double)i);
-        else if ( i == (uint32_t)((double)f_size/(double)S(f_size)) )
+        else if ( i == (int32_t)((double)f_size/(double)S(f_size)) )
                 return (double)S(f_size)*log(S(f_size)/DELTA)/(double)f_size;
         return 0;
     }
@@ -44,14 +44,14 @@ private:
 
 
 
-    double RSD(uint32_t i)    ///  Robust Soliton Distribution
+    double RSD(int32_t i)    ///  Robust Soliton Distribution
     {
         return ISD(i)+NNF(i);
     }
 
 
 
-    uint32_t BinarySearch(uint32_t , double);
+    int32_t BinarySearch(int32_t , double);
 
 
 
@@ -64,32 +64,32 @@ public:
 
     RandomGen()
     {
-        for(uint32_t i = 0; i <=f_size; ++i)
+        for(int32_t i = 0; i <=f_size; ++i)
             _M[i] = 0;
         InitCDF();
     }
 
 
-    void RandomGenerator(); /// RandomGenerator ui32_deg va _ui32_seed.
+    void RandomGenerator(); /// RandomGenerator i32_deg va _i32_seed.
 
 
-    void setSeed(uint32_t s)
+    void setSeed(int32_t s)
     {
-        _ui32_seed = s;
+        _i32_seed = s;
     }
 
 
 
-    uint32_t getDegree()
+    int32_t getDegree()
     {
         return _degree;
     }
 
 
 
-    uint32_t getSeed()
+    int32_t getSeed()
     {
-        return _ui32_seed;
+        return _i32_seed;
     }
 };
 
