@@ -327,6 +327,8 @@ void Decoding() /* Implement of decoding process */
     ///write back to tmp file
     FILE *writebin;
     writebin = fopen("tmp.bin","wb");
+    uint64_t _tmp = GetFileSize(s_path);
+    fwrite(&_tmp,sizeof(uint64_t),1,writebin);
 //    fwrite(odata,sizeof(MB_BLOCK),sizeof(odata),writebin);
     for (int32_t i = 0; i < f_size; i++)
         fwrite(&odata[i],sizeof(MB_BLOCK),1,writebin);
@@ -335,69 +337,33 @@ void Decoding() /* Implement of decoding process */
     std::cout << "Decode completed!";
 }
 
-void InitBuffer(MB_BLOCK &buffer) /* Fill buffer with NULL */
-{
-    for (int32_t i = 0; i < SIZE; i++)
-        buffer.c_byte[i] = '\0';
-}
-
 void RestoreOrigin()
 {
-    f_size = GetFileSize(s_path);
-
-    MB_BLOCK buffer;
-    InitBuffer(buffer);
-
     /* Read section */
     FILE* read;
     read = fopen("tmp.bin","rb");
+    FILE* write;
+    write = fopen(o_path.c_str(),"ab");
 
-    std::list<MB_BLOCK> storage;
+    uint64_t _tmp_size;
+    fread(&_tmp_size,sizeof(uint64_t),1,read);
+    std::cout << _tmp_size << std::endl;
 
-    while(!feof(read)) /* Read data from tmp file*/
+    for(uint64_t i = 0; i < _tmp_size; i++)
     {
-        fread(&buffer,sizeof(MB_BLOCK),1,read);
-        storage.push_back(buffer);
-        InitBuffer(buffer);
+        char buffer;
+        fread(&buffer,sizeof(char),1,read);
+        fwrite(&buffer,sizeof(char),1,write);
     }
 
     fclose(read);
-    /* End of read section */
-
-    /* Write section */
-    std::cout << f_size << std::endl;
-    system("pause");
-
-
-    FILE* write;
-    write = fopen(o_path.c_str(),"ab");
-    std::list<MB_BLOCK>::iterator it;
-
-    uint32_t _d = 0;
-    for (it = storage.begin(); it != storage.end(); it++)
-    {
-        buffer = *it;
-        if (it != --storage.end()) /* Write MB_BLOCK buffer */
-        {
-            fwrite(&buffer,sizeof(MB_BLOCK),1,write);
-            _d+=SIZE;
-            std::cout << _d << std::endl;
-        }
-        else /* Write the left over bits */
-        {
-            char _c_buffer;
-            int32_t _tmp = f_size - _d;
-            for (uint32_t i = 0; i < _tmp; i++) ///SIGSEGV
-            {
-                _c_buffer = buffer.c_byte[i];
-                fwrite(&_c_buffer,sizeof(char),1,write);
-                _d++;
-            }
-            std::cout << _d << std::endl;
-        }
-    }
 
     fclose(write);
+
+    if( remove( "tmp.bin" ) != 0 )
+        perror( "Error deleting file" );
+    else
+        puts( "File successfully deleted" );
     /* End of write section */
 }
 

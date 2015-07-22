@@ -11,13 +11,13 @@ std::string s_path,o_path,e_path;
 int main(int argc, char* argv[])
 {
     //IDE debug section//
-    s_path = "f:/YUGIOH.rar";
-    e_path = "f:/YUGIOH.lt";
-    o_path = "f:/res.rar";
-    f_size = GetFileSize(s_path)/SIZE;
-    if (GetFileSize(s_path)%SIZE != 0) f_size++;
-    std::cout << "File size: " << f_size << "MB" << std::endl;
-    Decoding();
+//    s_path = "f:/YUGIOH.rar";
+//    e_path = "f:/YUGIOH.lt";
+//    o_path = "f:/res.rar";
+//    f_size = GetFileSize(s_path)/SIZE;
+//    if (GetFileSize(s_path)%SIZE != 0) f_size++;
+//    std::cout << "File size: " << f_size << "MB" << std::endl;
+//    Decoding();
 //    exit(9);
 
     //Main section//
@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
     {
         using namespace std;
         cout << "-encode [seed] [block] [source path] [output path]" << endl;
-        cout << "-decode [source path] [output path]" << endl;
+        cout << "-decode [source path] [encoded path] [output path]" << endl;
         cout << "-debug [tag]" << endl;
         cout << "[tag] : decode" << endl;
     }

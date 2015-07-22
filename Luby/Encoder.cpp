@@ -90,6 +90,7 @@ void Encoding(int32_t i32_seed)
 
 
     write = fopen(o_path.c_str(),"wb");
+
     clock_t t = clock();
     for(int32_t i = 0; i < block; ++i)
     {
