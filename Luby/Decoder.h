@@ -30,13 +30,13 @@ bool ScanList(int32_t, std::list<int32_t>); /* Ripple search + return bool value
 
 
 
-void ScanDeg(DECODING_BLOCK*, MB_BLOCK*, std::list<int32_t> &, std::list<int32_t>);
+void ScanDeg(DECODING_BLOCK*, MB_BLOCK*, std::list<int32_t> &, std::list<int32_t>); /* Scan ripple and release symbol with d = 1*/
 
 
 
 void Decoding();
 
 
-void RestoreOrigin();
+void RestoreOrigin(); /* Restore original file */
 #endif // DECODER_H_INCLUDED
 

@@ -36,6 +36,43 @@ void ReInitBool(bool* check, Random* pseudo, int32_t i32_seed, int32_t &temp) /*
     check[temp] = true;
 }
 
+void RestoreOrigin() /* Restore original file */
+{
+    /* Read section */
+    FILE* read;
+    read = fopen("tmp.bin","rb");
+    FILE* write;
+    write = fopen(o_path.c_str(),"ab");
+
+    int32_t _tmp_size;
+    fread(&_tmp_size,sizeof(int32_t),1,read);  /* Original size from tmp */
+    //std::cout << _tmp_size << std::endl;
+
+    int32_t _d = _tmp_size/SIZE;
+    //std::cout << _d << std::endl;
+
+    for(int32_t i = 0; i < _d; i++) /* Rewrite with buffer in SIZE */
+    {
+        char* buffer = new char[SIZE];
+        fread(&buffer,sizeof(buffer),1,read);
+        fwrite(&buffer,sizeof(buffer),1,write);
+    }
+
+    for(; _d < _tmp_size; _d++) /* Rewrite left over bits */
+    {
+        char c_buffer;
+        fread(&c_buffer,sizeof(char),1,read);
+        fwrite(&c_buffer,sizeof(char),1,write);
+    }
+
+    fclose(read);
+
+    fclose(write);
+
+    if( remove( "tmp.bin" ) != 0 ) /* Delete temp file */
+        perror( "Error deleting file" );
+}
+
 void FormGraph(std::list<ENCODING_BLOCK> data, std::list<int32_t> *i32_l_blockpos, DECODING_BLOCK *gdata) /* Form graph of input symbol and encoding symbol */
 {
     ///for (int32_t i = 0; i < block; i++)
@@ -341,43 +378,7 @@ void Decoding() /* Implement of decoding process */
     RestoreOrigin();
 }
 
-void RestoreOrigin()
-{
-    /* Read section */
-    FILE* read;
-    read = fopen("tmp.bin","rb");
-    FILE* write;
-    write = fopen(o_path.c_str(),"ab");
 
-    int32_t _tmp_size;
-    fread(&_tmp_size,sizeof(int32_t),1,read);
-    std::cout << _tmp_size << std::endl;
 
-    int32_t _d = _tmp_size/SIZE;
-
-    for(int32_t i = 0; i < _d; i++)
-    {
-        char* buffer[SIZE];
-        fread(&buffer,sizeof(buffer),1,read);
-        fwrite(&buffer,sizeof(buffer),1,write);
-    }
-
-    for(; _d < _tmp_size; _d++)
-    {
-        char c_buffer;
-        fread(&c_buffer,sizeof(char),1,read);
-        fwrite(&c_buffer,sizeof(char),1,write);
-    }
-
-    fclose(read);
-
-    fclose(write);
-
-    if( remove( "tmp.bin" ) != 0 )
-        perror( "Error deleting file" );
-    else
-        puts( "File successfully deleted" );
-    /* End of write section */
-}
 
 
