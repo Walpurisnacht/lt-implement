@@ -8,102 +8,78 @@
 #include <math.h>
 #include <time.h>
 #include <list>
-#include <bits/stdc++.h>
 
-extern int K,k;
+extern int32_t block,f_size;
 
-#define C 0.1
-#define DELTA 0.5
-#define SIZE 1024*1024
-#define S(x) ((double)C*log((double)(x)/(double)DELTA)*sqrt((double)(x)))
-
+/* List of constant using in Random module */
+const float C = 0.1;
+const float DELTA = 0.5;
+const int32_t SIZE = 1 << 20;
 
 
-template <class T>
-void XOR(char* input1, char* input2, char* output, unsigned int s)
-{
-
-    T* in1 = (T*) input1;
-    T* in2 = (T*) input2;
-    T* out = (T*) output;
-    unsigned int n = s/sizeof(T);
-    unsigned int d = sizeof(T)*n;
-    for (register unsigned int i = 0; i<n; ++i)
-        out[i] = in1[i] ^ in2[i];
-    if (d<s) XOR<char>(input1+d,input2+d,output+d,s-d);
-}
+/* List of tooltip */
+void XOR(char* c_input1, char* c_input2, char* c_output, int32_t i32_size); /* Fast XOR operation */
 
 
-template<class T>
-void ReadData(T* data, const char* s)
-{
-    FILE* read;
-    read = fopen(s,"rb");
-    for (int i = 0; i < K; i++)
-        fread(&data[i],sizeof(T),1,read);
-    fclose(read);
-}
+uint64_t GetFileSize(std::string path); /* Get ui64_f_size in c_byte from path */
 
 
+/* Declarations */
 typedef struct MB_BLOCK
 {
-    char byte[SIZE];
+    char c_byte[SIZE];
 } MB_BLOCK;
 
 
 typedef struct ENCODING_BLOCK
 {
-    int d;
-    unsigned int filesize;
-    uint32_t seed;
-    MB_BLOCK DATA;
+    int32_t i32_deg;
+    uint64_t ui64_f_size;
+    int32_t i32_seed;
+    MB_BLOCK MB_DATA;
 } ENCODING_BLOCK;
 
 
-typedef struct RIPPLE
-{
-    bool checkin;
-    bool checkout;
-} RIPPLE;
-
 typedef struct DECODING_BLOCK
 {
-    std::list<int> _block_pos;
-    ENCODING_BLOCK _encode;
-    //d from _encode;
+    std::list<int32_t> i32_l_blockpos;
+    ENCODING_BLOCK EB_encode;
 } DECODING_BLOCK;
 
 class Random
 {
 private:
-    uint32_t M ;
-    uint32_t A ;
-    uint32_t state;
-    uint32_t MAX_RAND ;
+    int32_t _M ;
+    int32_t A ;
+    int32_t _state;
+    int32_t _MAX_RAND ;
 public:
-    Random(): M(2147483647UL), A(16807), MAX_RAND(M-1)
+    Random(): _M(2147483647UL), A(16807), _MAX_RAND(_M-1)
     {}
-    void setSeed(uint32_t s)
+    void setSeed(int32_t s)
     {
-        state = s;
+        _state = s;
     }
 
-    uint32_t getState()
+    int32_t getState()
     {
-        return state;
+        return _state;
     }
 
-    uint32_t getMAX_RAND()
+    int32_t getMAX_RAND()
     {
-        return MAX_RAND;
+        return _MAX_RAND;
     }
 
-    uint32_t nextInt()
+    int32_t nextInt()
     {
-        uint32_t next = (uint32_t)(((uint64_t)state * A) % M);
-        state = next;
+        int32_t next = (int32_t)(((uint64_t)_state * A) % _M);
+        _state = next;
         return next;
     }
+
+    void RandomBack(int32_t,std::list<int32_t>&);
+
 };
 
 #endif // LUBY_H_INCLUDED

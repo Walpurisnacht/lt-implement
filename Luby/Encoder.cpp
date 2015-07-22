@@ -1,45 +1,67 @@
 #include "Encoder.h"
 #include <bits/stdc++.h>
 
-extern int K,k;
+extern int32_t block,f_size;
+extern std::string s_path;
+extern std::string o_path;
 
-void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int degree, uint32_t seed, unsigned int filesize)
+int32_t i32_f_size;
+
+void Init_EB(ENCODING_BLOCK &encode) /* Initialize EB with all NULL char */
 {
-    bool *check = new bool[k];
-    for (int i = 0; i < k; i++)
+    for (int32_t i = 0; i < SIZE; i++)
+        encode.MB_DATA.c_byte[i] = '\0';
+}
+
+void ReadD(MB_BLOCK* data)  /* Read data from source */
+{
+    FILE* read;
+    read = fopen(s_path.c_str(),"rb");
+    for (int32_t i = 0; i < block; i++)
+        fread(&data[i],sizeof(MB_BLOCK),1,read);
+    fclose(read);
+}
+
+void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int32_t i32_deg, int32_t i32_seed, uint64_t ui64_f_size)
+{
+    bool *check = new bool[i32_f_size]; /* Improve randomness by reducing random redundancy */
+    for (int32_t i = 0; i < i32_f_size; i++) /* Initialize flag array */
         check[i] = false;
 
     //-Test-//
-//    for (int i = 0; i < K; i++)
-//        std::cout << check[i] << std::endl;
-//    system("pause");
+/*
+    for (int32_t i = 0; i < block; i++)
+    std::cout << check[i] << std::endl;
+    system("pause");
+*/
     //------//
-    Random *pseudo = new Random;
-    pseudo -> setSeed(seed);
-    uint32_t temp = pseudo -> nextInt() % k;
 
-    check[temp] = true;
+    Random *pseudo = new Random; /* Initialize base number */
+    pseudo -> setSeed(i32_seed);
+    int32_t _tmp = pseudo -> nextInt() % i32_f_size;
 
-//    std::cout << memcmp(&encode,&data[temp],sizeof(MB_BLOCK));
+    check[_tmp] = true;
+
+//    std::cout << memcmp(&encode,&data[_tmp],sizeof(MB_BLOCK));
+//    system("pause");
+//    encode= data[_tmp];
+
+    for ( int32_t i = 0; i < SIZE; ++i) /* Copy data to encode buffer */
+        encode.c_byte[i] = data[_tmp].c_byte[i];
+
+//    std::cout << memcmp(&encode,&data[_tmp],sizeof(MB_BLOCK));
 //    system("pause");
 
-        //encode= data[temp];
-    for (register int i = 0; i < SIZE; ++i)
-        encode.byte[i] = data[temp].byte[i];
-
-//    std::cout << memcmp(&encode,&data[temp],sizeof(MB_BLOCK));
-//    system("pause");
-
-    while(--degree)
+    while(--i32_deg) /* Implement of encoding process */
     {
-        while (check[temp])
-        temp = pseudo -> nextInt() % k;
-        //std::cout << temp << std::endl;
-        //std::cout << data[temp].byte[0] << std::endl;
-        check[temp] = true;
-        XOR<long long>(encode.byte,data[temp].byte,encode.byte,SIZE);
-        /*for (register int i = 0; i < SIZE; ++i)
-        encode.byte[i] = encode.byte[i] ^ data[temp].byte[i];*/
+        while (check[_tmp])
+            _tmp = pseudo -> nextInt() % i32_f_size;
+        //std::cout << _tmp << std::endl;
+        //std::cout << data[_tmp].c_byte[0] << std::endl;
+        check[_tmp] = true;
+        XOR(encode.c_byte,data[_tmp].c_byte,encode.c_byte,SIZE);
+        //for (register int32_t i = 0; i < SIZE; ++i)
+        //encode.c_byte[i] = encode.c_byte[i] ^ data[_tmp].c_byte[i];
     }
 
     delete pseudo;
@@ -48,49 +70,46 @@ void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int degree, uint32_t se
 
 
 
-void Encoding(int _tseed)
+void Encoding(int32_t i32_seed)
 {
-//    int _filesize = 0;
-////    std::cout << _filesize << std::endl;
-//    FILE *chk;
-//    chk = fopen("data.bin","rb");
-//    fseek(chk,0,SEEK_END);
-//    _filesize = (int) ftell(chk);
-//    fclose(chk);
-//    //debug//
-//    std::cout << "File size data.bin in MB: " << _filesize/(1024*1024) << std::endl;
-//    //debug//
-//
-//    //size section
+    //-File size-//
+    /*
+    int32_t _filesize = 0;
+    _filesize = GetFileSize(s_path);
+    std::cout << "File size data.bin in MB: " << _filesize/SIZE << std::endl;
+    */
+    //-----------//
+    i32_f_size = f_size/SIZE;
+    if (f_size%SIZE != 0) i32_f_size++;
 
-
-
-    MB_BLOCK *data = new MB_BLOCK[k];
-    ReadData<MB_BLOCK>(data,"data.bin");
+    MB_BLOCK *data = new MB_BLOCK[i32_f_size];
+    ReadD(data);
     ENCODING_BLOCK encode ;
-    FILE *writebin;
+    Init_EB(encode);
+
+    FILE *write;
     RandomGen *D = new RandomGen;
-    D -> setSeed(_tseed);
+    D -> setSeed(i32_seed);
 
 
 
-    writebin = fopen("encoded.lt","wb");
+    write = fopen(o_path.c_str(),"wb");
+
     clock_t t = clock();
-    for(int i = 0; i < K; ++i)
+    for(int32_t i = 0; i < block; ++i)
     {
         D -> RandomGenerator();
-        encode.d = D -> getDegree();
-        encode.seed = D -> getSeed();
-        encode.filesize = (unsigned int) k;
-        //debug
-        //std::cout << encode.filesize << std::endl;
-        //debug
-        Encoding_MB_BLOCK(encode.DATA,data,encode.d,encode.seed,encode.filesize);
-        fwrite(&encode,sizeof(ENCODING_BLOCK),1,writebin);
+        encode.i32_deg = D -> getDegree();
+        encode.i32_seed = D -> getSeed();
+        encode.ui64_f_size = (uint64_t) f_size;
+
+        Encoding_MB_BLOCK(encode.MB_DATA,data,encode.i32_deg,encode.i32_seed,encode.ui64_f_size);
+        fwrite(&encode,sizeof(ENCODING_BLOCK),1,write);
+        Init_EB(encode);
     }
     t = clock() - t;
-    std::cout << (float)t/CLOCKS_PER_SEC <<std::endl;
-    fclose(writebin);
+    std::cout << "Encoding time: " << (float)t/CLOCKS_PER_SEC <<std::endl;
+    fclose(write);
     delete data;
     delete D;
 };

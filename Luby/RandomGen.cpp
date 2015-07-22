@@ -7,29 +7,29 @@
 void RandomGen::InitCDF()
 {
     double Z = 1;
-    for (int i = 1; i<=k; ++i)
+    for (int32_t i = 1; i<=i32_f_size; ++i)
         Z+= NNF(i);
-    for (int i = 1; i<=k; ++i)
-        M[i]=M[i-1] + RSD(i)/Z;
+    for (int32_t i = 1; i<=i32_f_size; ++i)
+        _M[i]=_M[i-1] + RSD(i)/Z;
 }
 
 
 
-int RandomGen::BinarySearch(int n, double u)
+int32_t RandomGen::BinarySearch(int32_t n, double u)
 {
-    int left = 0, right = n, mid;
+    int32_t left = 0, right = n, mid;
     do
     {
         mid = (left + right)/2;
-        if ( M[mid] < u )
-            if ( M[mid+1] >= u )
+        if ( _M[mid] < u )
+            if ( _M[mid+1] >= u )
                 return mid+1;
             else
                 left = mid + 1;
         else
-        if ( M[mid] > u )
+        if ( _M[mid] > u )
         {
-            if ( M[mid-1] <= u )
+            if ( _M[mid-1] <= u )
                 return mid;
             else
                 right = mid - 1;
@@ -41,13 +41,13 @@ int RandomGen::BinarySearch(int n, double u)
 
 
 
-void RandomGen::RandomGenerator() /// RandomGenerator d va seed.
+void RandomGen::RandomGenerator() /// RandomGenerator i32_deg va i32_seed.
 {
     double temp;
     Random *pseudo = new Random;
-    pseudo -> setSeed(seed);
+    pseudo -> setSeed(_i32_seed);
     temp = (double)pseudo -> nextInt()/(double)pseudo -> getMAX_RAND();
-    degree = BinarySearch(k,temp);
-    seed = pseudo -> getState();
+    _degree = BinarySearch(i32_f_size,temp);
+    _i32_seed = pseudo -> getState();
     delete pseudo;
 }

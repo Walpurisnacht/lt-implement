@@ -3,51 +3,59 @@
 
 #include "Luby.h"
 
-extern int K,k;
+extern int32_t block,f_size,i32_f_size;
+extern const float C;
+extern const float DELTA;
+extern const int32_t SIZE;
+
+inline double S(double x)
+{
+    return ((double)C*log((double)(x)/(double)DELTA)*sqrt((double)(x)));
+}
 
 class RandomGen
 {
 
 private:
 
-    double* M = new double[k+1];
-    int degree;
-    uint32_t seed;
+    double* _M = new double[i32_f_size+1];
+    int32_t _degree;
+    int32_t _i32_seed;
 
 
-    double ISD(int i)     /// Ideal Soliton Distribution
+    double ISD(int32_t i)     /// Ideal Soliton Distribution
     {
         if(i==1)
-            return 1/(double)k;
+            return 1/(double)i32_f_size;
         return 1/(double)(i*(i-1));
     }
 
 
 
-    double NNF(int i)    /// non-negative function
+    double NNF(int32_t i)    /// non-negative function
     {
-        if (i < (int)((double)k/(double)S(k)))
-            return (double)S(k)/(double)((double)k*(double)i);
-        else if ( i == (int)((double)k/(double)S(k)) )
-                return (double)S(k)*log(S(k)/DELTA)/(double)k;
+        if (i < (int32_t)((double)i32_f_size/(double)S(i32_f_size)))
+            return (double)S(i32_f_size)/(double)((double)i32_f_size*(double)i);
+        else if ( i == (int32_t)((double)i32_f_size/(double)S(i32_f_size)) )
+                return (double)S(i32_f_size)*log(S(i32_f_size)/DELTA)/(double)i32_f_size;
         return 0;
     }
 
 
 
 
-    double RSD(int i)    ///  Robust Soliton Distribution
+    double RSD(int32_t i)    ///  Robust Soliton Distribution
     {
         return ISD(i)+NNF(i);
     }
 
 
 
-    int BinarySearch(int , double);
+    int32_t BinarySearch(int32_t , double);
 
 
 
-    void InitCDF();   /// Generate Array M
+    void InitCDF();   /// Generate Array _M
 
 
 
@@ -56,32 +64,32 @@ public:
 
     RandomGen()
     {
-        for(int i = 0; i <=k; ++i)
-            M[i] = 0;
+        for(int32_t i = 0; i <=i32_f_size; ++i)
+            _M[i] = 0;
         InitCDF();
     }
 
 
-    void RandomGenerator(); /// RandomGenerator d va seed.
+    void RandomGenerator(); /// RandomGenerator i32_deg va _i32_seed.
 
 
-    void setSeed(uint32_t s)
+    void setSeed(int32_t s)
     {
-        seed = s;
+        _i32_seed = s;
     }
 
 
 
-    int getDegree()
+    int32_t getDegree()
     {
-        return degree;
+        return _degree;
     }
 
 
 
-    int getSeed()
+    int32_t getSeed()
     {
-        return seed;
+        return _i32_seed;
     }
 };
 

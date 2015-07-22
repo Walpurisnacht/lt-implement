@@ -4,25 +4,39 @@
 #include "RandomGen.h"
 #include <bits/stdc++.h>
 
-bool IntCmpr(const int& first, const int& second);
 
-std::list<int>::iterator ListSearch(std::list<int> _block_pos, int n);
 
-void ReadES(std::list<ENCODING_BLOCK> &data);
+std::list<int32_t>::iterator ListSearch(std::list<int32_t>, int32_t); /* Search member from list + return list iterator */
 
-void ReInitBool(bool* check, Random* pseudo, int seed, uint32_t &temp);
 
-void FormGraph(std::list<ENCODING_BLOCK> data, std::list<int> *_block_pos, DECODING_BLOCK *gdata);
 
-std::list<int>* Decoding_ENCODING_BLOCK(std::list<ENCODING_BLOCK> data, std::list<int> *_block_pos);
+void ReadES(std::list<ENCODING_BLOCK>&); /* Read EB from encoded file */
 
-bool ScanList(int n, std::list<int> ripple);
 
-void ScanDeg(DECODING_BLOCK *gdata, MB_BLOCK *odata, std::list<int> &ripple, std::list<int> offripple);
+
+void ReInitBool(bool*, Random*, int32_t, int32_t&); /* Re-init random assets */
+
+
+
+void FormGraph(std::list<ENCODING_BLOCK>, std::list<int32_t>*, DECODING_BLOCK*); /* Form graph of input symbol and encoding symbol */
+
+
+
+std::list<int32_t>* Decoding_ENCODING_BLOCK(std::list<ENCODING_BLOCK>, std::list<int32_t>*); /* Random back list of input symbol embeded in encoding symbol*/
+
+
+
+bool ScanList(int32_t, std::list<int32_t>); /* Ripple search + return bool value */
+
+
+
+void ScanDeg(DECODING_BLOCK*, MB_BLOCK*, std::list<int32_t> &, std::list<int32_t>); /* Scan ripple and release symbol with d = 1*/
+
+
 
 void Decoding();
 
 
-
+void RestoreOrigin(); /* Restore original file */
 #endif // DECODER_H_INCLUDED
 

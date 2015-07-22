@@ -131,17 +131,17 @@
 1432660427 source:f:\mega\luby\randomgen.cpp
 	"RandomGen.h"
 
-1433126225 source:f:\sourcetree\lt-implement\luby\encoder.cpp
+1437550995 source:f:\sourcetree\lt-implement\luby\encoder.cpp
 	"Encoder.h"
 	<bits/stdc++.h>
 
-1432734977 f:\sourcetree\lt-implement\luby\encoder.h
+1437494112 f:\sourcetree\lt-implement\luby\encoder.h
 	"RandomGen.h"
 
-1433123419 f:\sourcetree\lt-implement\luby\randomgen.h
+1437551274 f:\sourcetree\lt-implement\luby\randomgen.h
 	"Luby.h"
 
-1433123346 f:\sourcetree\lt-implement\luby\luby.h
+1437496828 f:\sourcetree\lt-implement\luby\luby.h
 	<iostream>
 	<stdio.h>
 	<stdlib.h>
@@ -149,23 +149,26 @@
 	<math.h>
 	<time.h>
 	<list>
-	<bits/stdc++.h>
 
-1433130763 source:f:\sourcetree\lt-implement\luby\main.cpp
+1437556944 source:f:\sourcetree\lt-implement\luby\main.cpp
 	"Encoder.h"
 	"Decoder.h"
+	"Luby.h"
 	<bits/stdc++.h>
 	<exception>
 
-1432738798 f:\sourcetree\lt-implement\luby\decoder.h
+1437496877 f:\sourcetree\lt-implement\luby\decoder.h
 	"RandomGen.h"
 	<bits/stdc++.h>
 
-1433123539 source:f:\sourcetree\lt-implement\luby\randomgen.cpp
+1437551441 source:f:\sourcetree\lt-implement\luby\randomgen.cpp
 	"RandomGen.h"
 
-1433127385 source:f:\sourcetree\lt-implement\luby\decoder.cpp
+1437557789 source:f:\sourcetree\lt-implement\luby\decoder.cpp
 	"Decoder.h"
 	"Encoder.h"
+	"Luby.h"
+
+1437499261 source:f:\sourcetree\lt-implement\luby\luby.cpp
 	"Luby.h"
 
