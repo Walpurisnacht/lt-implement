@@ -6,19 +6,27 @@
 
 int32_t block,f_size; //f_size by MB
 bool test = false;
-std::string s_path,o_path,e_path;
+std::string s_path,o_path;
 
 int main(int argc, char* argv[])
 {
     //IDE debug section//
-    s_path = "f:/YUGIOH.rar";
-    e_path = "f:/YUGIOH.lt";
-    o_path = "f:/res.rar";
-    f_size = GetFileSize(s_path)/SIZE;
-    if (GetFileSize(s_path)%SIZE != 0) f_size++;
-    std::cout << "File size: " << f_size << "MB" << std::endl;
+//    s_path = "f:/YUGIOH.rar";
+//    e_path = "f:/YUGIOH.lt";
+//    o_path = "f:/res.rar";
+//    f_size = GetFileSize(s_path)/SIZE;
+//    if (GetFileSize(s_path)%SIZE != 0) f_size++;
+//    std::cout << "File size: " << f_size << "MB" << std::endl;
+//    Decoding();
+//    f_size = GetFileSize(s_path);
+//    o_path = "f:/tmp.lt";
+//    block = 100;
+//    Encoding(12520638);
+    s_path = "f:/algo.lt";
+    o_path = "f:/out.pdf";
     Decoding();
-//    exit(9);
+    system("pause");
+    exit(9);
 
     //Main section//
     int n;
@@ -40,22 +48,19 @@ int main(int argc, char* argv[])
         block = atoi(argv[3]);
         s_path = argv[4];
         o_path = argv[5];
-        f_size = GetFileSize(s_path)/SIZE;
-        if (GetFileSize(s_path)%SIZE != 0) f_size++;
-        std::cout << "File size: " << f_size << "MB" << std::endl;
+        f_size = GetFileSize(s_path);
+//        f_size = GetFileSize(s_path)/SIZE;
+//        if (GetFileSize(s_path)%SIZE != 0) f_size++;
+//        std::cout << "File size: " << f_size << "MB" << std::endl;
         Encoding(n);
     }
 
     else if (!strcmp(argv[1],"-decode"))
     {
         s_path = argv[2];
-        e_path = argv[3];
-        o_path = argv[4];
-        f_size = GetFileSize(s_path)/SIZE;
-        if (GetFileSize(s_path)%SIZE != 0) f_size++;
-        std::cout << "File size: " << f_size << "MB" << std::endl;
+//        e_path = argv[3];
+        o_path = argv[3];
         Decoding();
-
     }
 
     else if (!strcmp(argv[1],"-debug"))

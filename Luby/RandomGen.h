@@ -3,7 +3,7 @@
 
 #include "Luby.h"
 
-extern int32_t block,f_size;
+extern int32_t block,f_size,i32_f_size;
 extern const float C;
 extern const float DELTA;
 extern const int32_t SIZE;
@@ -18,7 +18,7 @@ class RandomGen
 
 private:
 
-    double* _M = new double[f_size+1];
+    double* _M = new double[i32_f_size+1];
     int32_t _degree;
     int32_t _i32_seed;
 
@@ -26,7 +26,7 @@ private:
     double ISD(int32_t i)     /// Ideal Soliton Distribution
     {
         if(i==1)
-            return 1/(double)f_size;
+            return 1/(double)i32_f_size;
         return 1/(double)(i*(i-1));
     }
 
@@ -34,10 +34,10 @@ private:
 
     double NNF(int32_t i)    /// non-negative function
     {
-        if (i < (int32_t)((double)f_size/(double)S(f_size)))
-            return (double)S(f_size)/(double)((double)f_size*(double)i);
-        else if ( i == (int32_t)((double)f_size/(double)S(f_size)) )
-                return (double)S(f_size)*log(S(f_size)/DELTA)/(double)f_size;
+        if (i < (int32_t)((double)i32_f_size/(double)S(i32_f_size)))
+            return (double)S(i32_f_size)/(double)((double)i32_f_size*(double)i);
+        else if ( i == (int32_t)((double)i32_f_size/(double)S(i32_f_size)) )
+                return (double)S(i32_f_size)*log(S(i32_f_size)/DELTA)/(double)i32_f_size;
         return 0;
     }
 
@@ -64,7 +64,7 @@ public:
 
     RandomGen()
     {
-        for(int32_t i = 0; i <=f_size; ++i)
+        for(int32_t i = 0; i <=i32_f_size; ++i)
             _M[i] = 0;
         InitCDF();
     }

@@ -5,6 +5,8 @@ extern int32_t block,f_size;
 extern std::string s_path;
 extern std::string o_path;
 
+int32_t i32_f_size;
+
 void Init_EB(ENCODING_BLOCK &encode) /* Initialize EB with all NULL char */
 {
     for (int32_t i = 0; i < SIZE; i++)
@@ -22,8 +24,8 @@ void ReadD(MB_BLOCK* data)  /* Read data from source */
 
 void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int32_t i32_deg, int32_t i32_seed, uint64_t ui64_f_size)
 {
-    bool *check = new bool[f_size]; /* Improve randomness by reducing random redundancy */
-    for (int32_t i = 0; i < f_size; i++) /* Initialize flag array */
+    bool *check = new bool[i32_f_size]; /* Improve randomness by reducing random redundancy */
+    for (int32_t i = 0; i < i32_f_size; i++) /* Initialize flag array */
         check[i] = false;
 
     //-Test-//
@@ -36,7 +38,7 @@ void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int32_t i32_deg, int32_
 
     Random *pseudo = new Random; /* Initialize base number */
     pseudo -> setSeed(i32_seed);
-    int32_t _tmp = pseudo -> nextInt() % f_size;
+    int32_t _tmp = pseudo -> nextInt() % i32_f_size;
 
     check[_tmp] = true;
 
@@ -53,7 +55,7 @@ void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int32_t i32_deg, int32_
     while(--i32_deg) /* Implement of encoding process */
     {
         while (check[_tmp])
-            _tmp = pseudo -> nextInt() % f_size;
+            _tmp = pseudo -> nextInt() % i32_f_size;
         //std::cout << _tmp << std::endl;
         //std::cout << data[_tmp].c_byte[0] << std::endl;
         check[_tmp] = true;
@@ -77,8 +79,10 @@ void Encoding(int32_t i32_seed)
     std::cout << "File size data.bin in MB: " << _filesize/SIZE << std::endl;
     */
     //-----------//
+    i32_f_size = f_size/SIZE;
+    if (f_size%SIZE != 0) i32_f_size++;
 
-    MB_BLOCK *data = new MB_BLOCK[f_size];
+    MB_BLOCK *data = new MB_BLOCK[i32_f_size];
     ReadD(data);
     ENCODING_BLOCK encode ;
     Init_EB(encode);
@@ -90,6 +94,7 @@ void Encoding(int32_t i32_seed)
 
 
     write = fopen(o_path.c_str(),"wb");
+
     clock_t t = clock();
     for(int32_t i = 0; i < block; ++i)
     {

@@ -4,7 +4,7 @@
 
 extern int32_t block,f_size;
 extern std::string s_path;
-extern std::string e_path;
+//extern std::string e_path;
 extern std::string o_path;
 
 std::list<int32_t>::iterator ListSearch(std::list<int32_t> i32_l_blockpos, int32_t n) /* Search member from list + return list iterator */
@@ -15,7 +15,7 @@ std::list<int32_t>::iterator ListSearch(std::list<int32_t> i32_l_blockpos, int32
 void ReadES(std::list<ENCODING_BLOCK> &data) /* Read EB from encoded file */
 {
     FILE *read;
-    read = fopen(e_path.c_str(),"rb");
+    read = fopen(/*e_path*/s_path.c_str(),"rb");
     ENCODING_BLOCK buffer;
     block = 0;
     while(!feof(read))
@@ -24,9 +24,7 @@ void ReadES(std::list<ENCODING_BLOCK> &data) /* Read EB from encoded file */
         data.push_back(buffer);
         block++;
     }
-    ///debug///
-//    std::cout << block << std::endl;
-    ///debug///
+
     fclose(read);
 }
 
@@ -230,7 +228,12 @@ void Decoding() /* Implement of decoding process */
     std::list<ENCODING_BLOCK> data;
     ReadES(data); ///block get!
 
-    int32_t _size = (int32_t)(*data.begin()).ui64_f_size;
+    int32_t _size = (int32_t)(*data.begin()).ui64_f_size; //Original size in bytes
+    //TMP//
+    std::cout << _size << std::endl;
+
+    f_size = _size/SIZE;
+    if (_size%SIZE != 0) f_size++; //MB blocks
 
     std::list<int32_t> *i32_l_blockpos = new std::list<int32_t>[block]; ///array of block_pos for each es
     Decoding_ENCODING_BLOCK(data,i32_l_blockpos); ///form list of input symbol
@@ -271,7 +274,7 @@ void Decoding() /* Implement of decoding process */
         std::list<int32_t>::iterator it;
         ScanDeg(gdata,odata,ripple,offripple); ///work
 
-        if (offripple.size() == _size) break;
+        if (offripple.size() == f_size) break;
         if (ripple.size() == 0) {std::cout << "Decode failed!"; return;} ///release i32_deg = 1 encoding symbols and add them to ripple
         for (it = ripple.begin(); it != ripple.end();) ///process ripple
         {
@@ -327,77 +330,53 @@ void Decoding() /* Implement of decoding process */
     ///write back to tmp file
     FILE *writebin;
     writebin = fopen("tmp.bin","wb");
-//    fwrite(odata,sizeof(MB_BLOCK),sizeof(odata),writebin);
+    fwrite(&_size,sizeof(int32_t),1,writebin);
+
     for (int32_t i = 0; i < f_size; i++)
         fwrite(&odata[i],sizeof(MB_BLOCK),1,writebin);
     fclose(writebin);
-    RestoreOrigin();
     std::cout << "Decode completed!";
-}
-
-void InitBuffer(MB_BLOCK &buffer) /* Fill buffer with NULL */
-{
-    for (int32_t i = 0; i < SIZE; i++)
-        buffer.c_byte[i] = '\0';
+    system("pause");
+    delete(odata);
+    RestoreOrigin();
 }
 
 void RestoreOrigin()
 {
-    f_size = GetFileSize(s_path);
-
-    MB_BLOCK buffer;
-    InitBuffer(buffer);
-
     /* Read section */
     FILE* read;
     read = fopen("tmp.bin","rb");
+    FILE* write;
+    write = fopen(o_path.c_str(),"ab");
 
-    std::list<MB_BLOCK> storage;
+    int32_t _tmp_size;
+    fread(&_tmp_size,sizeof(int32_t),1,read);
+    std::cout << _tmp_size << std::endl;
 
-    while(!feof(read)) /* Read data from tmp file*/
+    int32_t _d = _tmp_size/SIZE;
+
+    for(int32_t i = 0; i < _d; i++)
     {
-        fread(&buffer,sizeof(MB_BLOCK),1,read);
-        storage.push_back(buffer);
-        InitBuffer(buffer);
+        char* buffer[SIZE];
+        fread(&buffer,sizeof(buffer),1,read);
+        fwrite(&buffer,sizeof(buffer),1,write);
+    }
+
+    for(; _d < _tmp_size; _d++)
+    {
+        char c_buffer;
+        fread(&c_buffer,sizeof(char),1,read);
+        fwrite(&c_buffer,sizeof(char),1,write);
     }
 
     fclose(read);
-    /* End of read section */
-
-    /* Write section */
-    std::cout << f_size << std::endl;
-    system("pause");
-
-
-    FILE* write;
-    write = fopen(o_path.c_str(),"ab");
-    std::list<MB_BLOCK>::iterator it;
-
-    uint32_t _d = 0;
-    for (it = storage.begin(); it != storage.end(); it++)
-    {
-        buffer = *it;
-        if (it != --storage.end()) /* Write MB_BLOCK buffer */
-        {
-            fwrite(&buffer,sizeof(MB_BLOCK),1,write);
-            _d+=SIZE;
-            std::cout << _d << std::endl;
-        }
-        else /* Write the left over bits */
-        {
-            char _c_buffer;
-            int32_t _tmp = f_size - _d;
-            for (uint32_t i = 0; i < _tmp; i++) ///SIGSEGV
-            {
-                _c_buffer = buffer.c_byte[i];
-                fwrite(&_c_buffer,sizeof(char),1,write);
-                _d++;
-            }
-            std::cout << _d << std::endl;
-        }
-    }
 
     fclose(write);
+
+    if( remove( "tmp.bin" ) != 0 )
+        perror( "Error deleting file" );
+    else
+        puts( "File successfully deleted" );
     /* End of write section */
 }
 

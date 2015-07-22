@@ -7,9 +7,9 @@
 void RandomGen::InitCDF()
 {
     double Z = 1;
-    for (int32_t i = 1; i<=f_size; ++i)
+    for (int32_t i = 1; i<=i32_f_size; ++i)
         Z+= NNF(i);
-    for (int32_t i = 1; i<=f_size; ++i)
+    for (int32_t i = 1; i<=i32_f_size; ++i)
         _M[i]=_M[i-1] + RSD(i)/Z;
 }
 
@@ -47,7 +47,7 @@ void RandomGen::RandomGenerator() /// RandomGenerator i32_deg va i32_seed.
     Random *pseudo = new Random;
     pseudo -> setSeed(_i32_seed);
     temp = (double)pseudo -> nextInt()/(double)pseudo -> getMAX_RAND();
-    _degree = BinarySearch(f_size,temp);
+    _degree = BinarySearch(i32_f_size,temp);
     _i32_seed = pseudo -> getState();
     delete pseudo;
 }
