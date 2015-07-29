@@ -60,8 +60,6 @@ void Encoding_MB_BLOCK(MB_BLOCK &encode, MB_BLOCK *data, int32_t i32_deg, int32_
         //std::cout << data[_tmp].c_byte[0] << std::endl;
         check[_tmp] = true;
         XOR(encode.c_byte,data[_tmp].c_byte,encode.c_byte,SIZE);
-        //for (register int32_t i = 0; i < SIZE; ++i)
-        //encode.c_byte[i] = encode.c_byte[i] ^ data[_tmp].c_byte[i];
     }
 
     delete pseudo;
@@ -85,7 +83,6 @@ void Encoding(int32_t i32_seed)
     MB_BLOCK *data = new MB_BLOCK[i32_f_size];
     ReadD(data);
     ENCODING_BLOCK encode ;
-    Init_EB(encode);
 
     FILE *write;
     RandomGen *D = new RandomGen;
@@ -98,6 +95,7 @@ void Encoding(int32_t i32_seed)
     clock_t t = clock();
     for(int32_t i = 0; i < block; ++i)
     {
+        Init_EB(encode);
         D -> RandomGenerator();
         encode.i32_deg = D -> getDegree();
         encode.i32_seed = D -> getSeed();
@@ -105,7 +103,6 @@ void Encoding(int32_t i32_seed)
 
         Encoding_MB_BLOCK(encode.MB_DATA,data,encode.i32_deg,encode.i32_seed,encode.ui64_f_size);
         fwrite(&encode,sizeof(ENCODING_BLOCK),1,write);
-        Init_EB(encode);
     }
     t = clock() - t;
     std::cout << "Encoding time: " << (float)t/CLOCKS_PER_SEC <<std::endl;
