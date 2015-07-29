@@ -28,14 +28,6 @@ void ReadES(std::list<ENCODING_BLOCK> &data) /* Read EB from encoded file */
     fclose(read);
 }
 
-void ReInitBool(bool* check, Random* pseudo, int32_t i32_seed, int32_t &temp) /* Re-init random assets */
-{
-    for (int32_t i = 0; i < f_size; i++) check[i] = false;
-    pseudo -> setSeed(i32_seed);
-    temp = pseudo -> nextInt() % f_size;
-    check[temp] = true;
-}
-
 void RestoreOrigin() /* Restore original file */
 {
     /* Read section */
@@ -127,7 +119,7 @@ void FormGraph(std::list<ENCODING_BLOCK> data, std::list<int32_t> *i32_l_blockpo
 
 }
 
-std::list<int32_t>* Decoding_ENCODING_BLOCK(std::list<ENCODING_BLOCK> data, std::list<int32_t> *i32_l_blockpos) /* Random back list of input symbol embeded in encoding symbol*/
+void Decoding_ENCODING_BLOCK(std::list<ENCODING_BLOCK> data, std::list<int32_t> *i32_l_blockpos) /* Random back list of input symbol embeded in encoding symbol*/
 {
     {
 ///    bool *check = new bool[block];
@@ -171,7 +163,6 @@ std::list<int32_t>* Decoding_ENCODING_BLOCK(std::list<ENCODING_BLOCK> data, std:
         pseudo -> RandomBack((*it).i32_deg,i32_l_blockpos[i]);
     }
 
-{
 ///    for (int32_t i = 0; i < block; i++)
 ///    {
 ///
@@ -200,9 +191,7 @@ std::list<int32_t>* Decoding_ENCODING_BLOCK(std::list<ENCODING_BLOCK> data, std:
 
     ///t = clock() - t;
     ///std::cout << (float)t/CLOCKS_PER_SEC <<std::endl;
-}
 
-    return i32_l_blockpos;
 }
 
 bool ScanList(int32_t n, std::list<int32_t> ripple) /* Ripple search + return bool value */
@@ -222,7 +211,7 @@ void ScanDeg(DECODING_BLOCK *gdata, MB_BLOCK *odata, std::list<int32_t> &ripple,
         {
             int32_t tmp = *gdata[i].i32_l_blockpos.begin(); ///position of i32_deg=1 encoding symbol
             ///odata[tmp] = gdata[i].EB_encode.DATA; ///XOR data to original position
-            for (register int32_t j = 0; j < SIZE; ++j)
+            for (int32_t j = 0; j < SIZE; ++j)
                 odata[tmp].c_byte[j] = gdata[i].EB_encode.MB_DATA.c_byte[j];
 
             ///debug///
