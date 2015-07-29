@@ -14,15 +14,11 @@ void ReadES(std::list<ENCODING_BLOCK>&); /* Read EB from encoded file */
 
 
 
-void ReInitBool(bool*, Random*, int32_t, int32_t&); /* Re-init random assets */
-
-
-
 void FormGraph(std::list<ENCODING_BLOCK>, std::list<int32_t>*, DECODING_BLOCK*); /* Form graph of input symbol and encoding symbol */
 
 
 
-std::list<int32_t>* Decoding_ENCODING_BLOCK(std::list<ENCODING_BLOCK>, std::list<int32_t>*); /* Random back list of input symbol embeded in encoding symbol*/
+void Decoding_ENCODING_BLOCK(std::list<ENCODING_BLOCK>, std::list<int32_t>*); /* Random back list of input symbol embeded in encoding symbol*/
 
 
 
